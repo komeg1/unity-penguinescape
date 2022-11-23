@@ -6,15 +6,24 @@ public class FoxController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 0.5f;
     [SerializeField] private float jumpForce = 6.0f;
-    [SerializeField] private LayerMask jumpableGround;
     private const float rayLength = 1.2f;
     private Rigidbody2D rigidBody2d;
     private SpriteRenderer spriteRenderer;
+    [SerializeField] private LayerMask jumpableGround;
+
+    private int score = 0;
+
+
+    private Animator animator;
+
+    private bool isWalking = false;
+    
 
     private void Awake()
     {
         rigidBody2d = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
     }
     void Start()
     {
@@ -30,6 +39,17 @@ public class FoxController : MonoBehaviour
         Debug.DrawRay(transform.position, Vector3.down * rayLength, Color.white, 0, false);
 
         Jump();
+
+        
+        isWalking = false;
+
+        if ((Input.GetAxis("Horizontal")!=0))
+        {
+            isWalking = true;
+        }
+
+        animator.SetBool("isGrounded", isGrounded());
+        animator.SetBool("isWalking", isWalking);
     }
 
     void Jump()
@@ -50,5 +70,15 @@ public class FoxController : MonoBehaviour
             spriteRenderer.flipX = true;
         else
             spriteRenderer.flipX = false;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.CompareTag("Coin"))
+        {
+            score++;
+            Debug.Log("Score: " + score);
+            other.gameObject.SetActive(false);
+        }
     }
 }
