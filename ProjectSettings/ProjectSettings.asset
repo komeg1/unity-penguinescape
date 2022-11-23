@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 24
-  productGUID: 9a8e32bced86cc8448f1f4577e344b35
+  productGUID: 078a1ee608569bd4cac4f0834a33a071
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: DefaultCompany
-  productName: 2D Platformer FGolas TKrezymon PKorczak
+  productName: projekt_mii
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -636,7 +636,7 @@ PlayerSettings:
     m_VersionName: 
   apiCompatibilityLevel: 6
   activeInputHandler: 0
-  cloudProjectId: b67079be-283e-46cb-9ba9-a7604cac111e
+  cloudProjectId: 811f4056-c785-4ef7-85ac-c7e3037af1bf
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
   projectName: 
