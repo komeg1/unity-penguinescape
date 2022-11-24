@@ -400,6 +400,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1984324647}
   followSpeed: 1
+  smooth: 0
 --- !u!1001 &594545747
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2546,7 +2547,7 @@ MonoBehaviour:
   jumpSpeed: 20
   moveSpeed: 8
   fallSpeedMultiplier: 10
-  maxFallSpeed: 20
+  maxFallSpeed: 40
 --- !u!95 &1984324651
 Animator:
   serializedVersion: 4

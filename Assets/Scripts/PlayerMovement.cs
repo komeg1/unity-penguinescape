@@ -14,9 +14,17 @@ public class PlayerMovement : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private CapsuleCollider2D collider;
 
+    private const float IsGroundedRayLength = 1.5f;
+
     private int score = 0;
     private Animator animator;
     private bool isWalking = false;
+
+    private float coyoteTime = 0.2f; // Ile sekund za pozno mozna wykonac skok
+    private float coyoteTimeCounter;
+
+    private float jumpBufferTime = 0.2f; // Ile sekund za wczesnie mozna wykonac skok
+    private float jumpBufferCounter;
 
     private void Awake()
     {
@@ -53,24 +61,34 @@ public class PlayerMovement : MonoBehaviour
 
     void Jump()
     {
-        if (Input.GetButtonDown("Jump") && IsGrounded())
+        // Zamiast sprawdzac czy postac jest uziemiona bedziemy sprawdzac jak dawno temu byla uziemiona
+        // Dzieki temu mozna skoczyc z lekkim opoznieniem po opuszczeniu stabilnego gruntu
+        if (IsGrounded())
+            coyoteTimeCounter = coyoteTime;
+        else
+            coyoteTimeCounter -= Time.deltaTime;
+
+        if (Input.GetButtonDown("Jump"))
+            jumpBufferCounter = jumpBufferTime;
+        else
+            jumpBufferCounter -= Time.deltaTime;
+
+        //Skoki sa buforowane, jezeli wcisniemy skok kilka klatek zbyt wczesnie i tak zostanie on zarejestrowany
+        if (jumpBufferCounter > 0f && coyoteTimeCounter > 0f)
         {
             rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpSpeed);
+            jumpBufferCounter = 0f;
         }
     }
 
     private void Fall()
     {
-        if (rigidBody.velocity.y > 0.1f)
+        if (Input.GetButtonUp("Jump") && rigidBody.velocity.y > 0f)
         {
-            if (!Input.GetButton("Jump"))
-                IncreaseFallSpeed();
+            rigidBody.velocity = new Vector2(rigidBody.velocity.x, rigidBody.velocity.y * 0.5f);
+            coyoteTimeCounter = 0f;
         }
-        else if (rigidBody.velocity.y < -0.1f)
-            IncreaseFallSpeed();
-
         CapFallSpeed();
-        
     }
     void CapFallSpeed()
     {
@@ -90,7 +108,7 @@ public class PlayerMovement : MonoBehaviour
 
     bool IsGrounded()
     {
-        return Physics2D.Raycast(transform.position, Vector2.down, 1, jumpableGround.value);
+        return Physics2D.Raycast(transform.position, Vector2.down, IsGroundedRayLength, jumpableGround.value);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
