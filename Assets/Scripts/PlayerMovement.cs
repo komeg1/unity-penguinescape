@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float moveSpeed;
     [SerializeField] private float fallSpeedMultiplier;
     [SerializeField] private float maxFallSpeed;
+    [SerializeField] private float maxWaterMoveSpeed;
+    [SerializeField] private float waterGravityScale;
 
     private Rigidbody2D rigidBody;
     private SpriteRenderer spriteRenderer;
@@ -27,18 +29,21 @@ public class PlayerMovement : MonoBehaviour
     private float coyoteTimeCounter;
     private float jumpBufferTime = 0.2f; // Ile sekund za wczesnie mozna wykonac skok
     private float jumpBufferCounter;
-    
+    private float gravityScale;
+
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         collider = GetComponent<CapsuleCollider2D>();
         animator = GetComponent<Animator>();
+        gravityScale = rigidBody.gravityScale;
     }
 
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("Gravity: " + rigidBody.gravityScale);
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
         Move(horizontal);
@@ -125,8 +130,39 @@ public class PlayerMovement : MonoBehaviour
         if (other.CompareTag("Coin"))
         {
             score++;
-            Debug.Log("Score: " + score);
+            //Debug.Log("Score: " + score);
             other.gameObject.SetActive(false);
         }
+        if (other.CompareTag("Water"))
+        {
+            rigidBody.gravityScale = gravityScale * waterGravityScale;
+        }
     }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.CompareTag("Water"))
+        {
+            if (rigidBody.velocity.x > maxWaterMoveSpeed)
+                rigidBody.velocity = new Vector2(maxWaterMoveSpeed, rigidBody.velocity.y);
+            if (rigidBody.velocity.x < -maxWaterMoveSpeed)
+                rigidBody.velocity = new Vector2(-maxWaterMoveSpeed, rigidBody.velocity.y);
+
+            if (rigidBody.velocity.y > maxWaterMoveSpeed)
+                rigidBody.velocity = new Vector2(rigidBody.velocity.x, maxWaterMoveSpeed);
+            if (rigidBody.velocity.y < -maxWaterMoveSpeed || rigidBody.velocity.y < -maxWaterMoveSpeed)
+                rigidBody.velocity = new Vector2(rigidBody.velocity.x,  -maxWaterMoveSpeed);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Water"))
+        {
+            rigidBody.gravityScale = gravityScale;
+        }
+    }
+
+
+
 }
