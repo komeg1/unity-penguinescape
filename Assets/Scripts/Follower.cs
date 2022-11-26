@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Follower : MonoBehaviour
 {
+    [SerializeField] private bool followX = true;
+    [SerializeField] private bool followY = true;
+    [SerializeField] private bool followZ = false;
+
     [SerializeField] private Transform target;
     [SerializeField] private float followSpeed = 1f;
     [SerializeField] private bool smooth = true; // Gdy smooth = false to followSpeed=1 oznacza pod¹¿anie bez opóŸnieñ
@@ -41,7 +45,11 @@ public class Follower : MonoBehaviour
         if (Vector2.Distance(transform.position, target.position) > 0f)
         {
             Vector3 newPos = Vector3.Lerp(transform.position, target.position, followSpeed);
-            transform.position = new Vector3(newPos.x, newPos.y, transform.position.z);
+            newPos = new Vector3(
+                (followX ? newPos.x : transform.position.x), 
+                (followY ? newPos.y : transform.position.y), 
+                (followZ ? newPos.z : transform.position.z));
+            transform.position = newPos;
         }
     }
 }

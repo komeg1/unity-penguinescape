@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private CapsuleCollider2D collider;
 
-    private const float IsGroundedRayLength = 1.5f;
+    private const float IsGroundedRayLength = 0.5f;
 
     private int score = 0;
     private Animator animator;
@@ -47,6 +47,8 @@ public class PlayerMovement : MonoBehaviour
 
         animator.SetBool("isGrounded", IsGrounded());
         animator.SetBool("isWalking", isWalking);
+
+        Debug.DrawLine(transform.position, transform.position + (Vector3.down * IsGroundedRayLength), Color.red);
     }
 
     void Move(float horizontal)
