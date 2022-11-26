@@ -18,14 +18,16 @@ public class PlayerMovement : MonoBehaviour
 
     private int score = 0;
     private Animator animator;
+
+
     private bool isWalking = false;
+    private bool isFacingRight = true;
 
     private float coyoteTime = 0.2f; // Ile sekund za pozno mozna wykonac skok
     private float coyoteTimeCounter;
-
     private float jumpBufferTime = 0.2f; // Ile sekund za wczesnie mozna wykonac skok
     private float jumpBufferCounter;
-
+    
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
@@ -51,8 +53,12 @@ public class PlayerMovement : MonoBehaviour
     {
         if (horizontal != 0f)
         {
-            if ((!spriteRenderer.flipX && horizontal < 0) || (spriteRenderer.flipX && horizontal > 0))
+                //Zamienilem metode flip, na rotowanie obiektu o 180st w Y, zeby moc dodac obiekt na rece, z ktorej wylatuja pociski,
+                //bo inaczej obracal sie sam sprite, a reka caly czas wskazywala na jeden kierunek
+            if (horizontal < 0 && isFacingRight)    
                 Flip();       
+            else if(horizontal >0 && isFacingRight == false)
+                Flip();
         }
         rigidBody.velocity = new Vector2(horizontal * moveSpeed, rigidBody.velocity.y);
 
@@ -103,7 +109,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Flip()
     {
-        spriteRenderer.flipX =!spriteRenderer.flipX;
+        transform.Rotate(0,180f,0);
+        isFacingRight = !isFacingRight;
     }
 
     bool IsGrounded()
