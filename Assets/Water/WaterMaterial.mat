@@ -71,10 +71,10 @@ Material:
     m_Ints: []
     m_Floats:
     - _Caustics_Movement: 2
-    - _Caustics_Power: 9
+    - _Caustics_Power: 6
     - _Caustics_Scale: 2
     - _EnableExternalAlpha: 0
-    - _Refraction_Amount: 0.2
+    - _Refraction_Amount: 0.01
     - _ShoreLine_Length: 13
     m_Colors:
     - _Caustics_Color: {r: 1, g: 0, b: 0, a: 0}
