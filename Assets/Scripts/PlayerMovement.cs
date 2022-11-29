@@ -9,7 +9,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float moveSpeed;
     [SerializeField] private float fallSpeedMultiplier;
     [SerializeField] private float maxFallSpeed;
-    [SerializeField] private float maxWaterMoveSpeed;
+    [SerializeField] private float waterSpeedMultiplier;
+    private float maxWaterMoveSpeed;
     [SerializeField] private float waterGravityScale;
 
     private Rigidbody2D rigidBody;
@@ -31,6 +32,9 @@ public class PlayerMovement : MonoBehaviour
     private float jumpBufferCounter;
     private float gravityScale;
 
+    private bool inWater = false;
+
+
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
@@ -38,6 +42,7 @@ public class PlayerMovement : MonoBehaviour
         collider = GetComponent<CapsuleCollider2D>();
         animator = GetComponent<Animator>();
         gravityScale = rigidBody.gravityScale;
+        maxWaterMoveSpeed = moveSpeed * waterSpeedMultiplier;
     }
 
     // Update is called once per frame
@@ -67,7 +72,10 @@ public class PlayerMovement : MonoBehaviour
             else if(horizontal >0 && isFacingRight == false)
                 Flip();
         }
-        rigidBody.velocity = new Vector2(horizontal * moveSpeed, rigidBody.velocity.y);
+        if(inWater)
+            rigidBody.velocity = new Vector2(horizontal * maxWaterMoveSpeed, rigidBody.velocity.y);
+        else
+            rigidBody.velocity = new Vector2(horizontal * moveSpeed, rigidBody.velocity.y);
 
         isWalking = (horizontal != 0);
     }
@@ -87,10 +95,23 @@ public class PlayerMovement : MonoBehaviour
             jumpBufferCounter -= Time.deltaTime;
 
         //Skoki sa buforowane, jezeli wcisniemy skok kilka klatek zbyt wczesnie i tak zostanie on zarejestrowany
-        if (jumpBufferCounter > 0f && coyoteTimeCounter > 0f)
+        if(inWater)
         {
-            rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpSpeed);
-            jumpBufferCounter = 0f;
+            if (Input.GetButton("Jump"))
+            {
+                rigidBody.velocity += new Vector2(0, jumpSpeed * Time.deltaTime);
+            }
+        }
+        else
+        {
+            if (jumpBufferCounter > 0f)
+            {
+                if (coyoteTimeCounter > 0f)
+                {
+                    rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpSpeed);
+                    jumpBufferCounter = 0f;
+                }
+            }
         }
     }
 
@@ -107,11 +128,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (rigidBody.velocity.y < -maxFallSpeed)
             rigidBody.velocity = new Vector2(rigidBody.velocity.x, -maxFallSpeed);
-    }
-
-    private void IncreaseFallSpeed()
-    {
-        rigidBody.velocity += (fallSpeedMultiplier - 1) * Physics2D.gravity.y * Time.deltaTime * Vector2.up;
     }
 
     void Flip()
@@ -135,23 +151,19 @@ public class PlayerMovement : MonoBehaviour
         }
         if (other.CompareTag("Water"))
         {
-            rigidBody.gravityScale = gravityScale * waterGravityScale;
+            inWater = true; // ustawiamy flagê, która mo¿e siê przydaæ gdzie indziej
+            rigidBody.gravityScale = gravityScale * waterGravityScale; // wolniejsze opadanie w wodzie
         }
     }
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.CompareTag("Water"))
+        if (other.CompareTag("Water")) 
         {
-            if (rigidBody.velocity.x > maxWaterMoveSpeed)
-                rigidBody.velocity = new Vector2(maxWaterMoveSpeed, rigidBody.velocity.y);
-            if (rigidBody.velocity.x < -maxWaterMoveSpeed)
-                rigidBody.velocity = new Vector2(-maxWaterMoveSpeed, rigidBody.velocity.y);
-
-            if (rigidBody.velocity.y > maxWaterMoveSpeed)
-                rigidBody.velocity = new Vector2(rigidBody.velocity.x, maxWaterMoveSpeed);
-            if (rigidBody.velocity.y < -maxWaterMoveSpeed || rigidBody.velocity.y < -maxWaterMoveSpeed)
-                rigidBody.velocity = new Vector2(rigidBody.velocity.x,  -maxWaterMoveSpeed);
+            rigidBody.velocity = new Vector2( // W wodzie szybkosc ruchu jest ograniczona
+                Mathf.Clamp(rigidBody.velocity.x, -maxWaterMoveSpeed, maxWaterMoveSpeed),
+                Mathf.Clamp(rigidBody.velocity.y, -maxWaterMoveSpeed, maxWaterMoveSpeed)
+                );
         }
     }
 
@@ -159,7 +171,13 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.CompareTag("Water"))
         {
-            rigidBody.gravityScale = gravityScale;
+            rigidBody.gravityScale = gravityScale; // przywracamy wartoœci z przed wejœcia do wody
+            inWater = false;
+
+            if (Input.GetButton("Jump")) // mo¿na wyskoczyæ z wody
+            {
+                rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpSpeed);
+            }
         }
     }
 
