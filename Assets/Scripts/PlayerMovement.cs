@@ -143,12 +143,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Coin"))
-        {
-            score++;
-            //Debug.Log("Score: " + score);
-            other.gameObject.SetActive(false);
-        }
         if (other.CompareTag("Water"))
         {
             inWater = true; // ustawiamy flagê, która mo¿e siê przydaæ gdzie indziej
