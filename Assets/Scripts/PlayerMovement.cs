@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private CapsuleCollider2D collider;
 
-    private const float IsGroundedRayLength = 0.5f;
+    private const float IsGroundedRayLength = 0.6f;
 
     private Animator animator;
 
