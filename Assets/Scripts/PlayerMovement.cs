@@ -19,7 +19,6 @@ public class PlayerMovement : MonoBehaviour
 
     private const float IsGroundedRayLength = 0.5f;
 
-    private int score = 0;
     private Animator animator;
 
 
@@ -48,7 +47,6 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Gravity: " + rigidBody.gravityScale);
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
         Move(horizontal);
@@ -57,8 +55,6 @@ public class PlayerMovement : MonoBehaviour
 
         animator.SetBool("isGrounded", IsGrounded());
         animator.SetBool("isWalking", isWalking);
-
-        Debug.DrawLine(transform.position, transform.position + (Vector3.down * IsGroundedRayLength), Color.red);
     }
 
     void Move(float horizontal)
