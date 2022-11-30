@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Coin
+  - Water
   layers:
   - Default
   - TransparentFX
@@ -39,13 +40,19 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Background
+  - name: Background2
     uniqueID: 2725782589
     locked: 0
-  - name: Ground
+  - name: Background1
+    uniqueID: 1420589743
+    locked: 0
+  - name: TerrainBackground
+    uniqueID: 3233819813
+    locked: 0
+  - name: Terrain
     uniqueID: 710931969
     locked: 0
-  - name: GroundDecorations
+  - name: TerrainDecorations
     uniqueID: 3180436885
     locked: 0
   - name: Default
