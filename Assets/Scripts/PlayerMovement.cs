@@ -33,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool inWater = false;
 
+    public bool canMove = true;
 
     private void Awake()
     {
@@ -47,11 +48,14 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
-        Move(horizontal);
-        Jump();
-        Fall();
+        if (canMove)
+        {
+            float horizontal = Input.GetAxis("Horizontal");
+            float vertical = Input.GetAxis("Vertical");
+            Move(horizontal);
+            Jump();
+            Fall();
+        }
 
         animator.SetBool("isGrounded", IsGrounded());
         animator.SetBool("isWalking", isWalking);
@@ -144,6 +148,11 @@ public class PlayerMovement : MonoBehaviour
             inWater = true; // ustawiamy flagê, która mo¿e siê przydaæ gdzie indziej
             rigidBody.gravityScale = gravityScale * waterGravityScale; // wolniejsze opadanie w wodzie
         }
+        else if(other.CompareTag("MovingPlatform"))
+        {
+            Debug.Log("On a platform!");
+            transform.SetParent(other.transform);
+        }
     }
 
     private void OnTriggerStay2D(Collider2D other)
@@ -168,6 +177,11 @@ public class PlayerMovement : MonoBehaviour
             {
                 rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpSpeed);
             }
+        }
+        else if(collision.CompareTag("MovingPlatform"))
+        {
+            if (transform.parent = collision.transform)
+                transform.SetParent(null);
         }
     }
 

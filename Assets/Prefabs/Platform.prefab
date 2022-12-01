@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 5837432313565373792}
   - component: {fileID: 2797918583878384894}
   - component: {fileID: 1644100135888254009}
-  m_Layer: 6
-  m_Name: platform-long 1
+  - component: {fileID: 5238171467151131576}
+  m_Layer: 3
+  m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +32,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2797918583878384894
 SpriteRenderer:
@@ -111,3 +112,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &5238171467151131576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1096811153827893047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7501f547871f4314d95f67842fe32a3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  points: []
+  startingPoint: 0
+  moveSpeed: 1

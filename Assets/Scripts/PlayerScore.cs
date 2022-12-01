@@ -29,8 +29,8 @@ public class PlayerScore : MonoBehaviour
     {
         if (other.CompareTag("Coin"))
         {
+            other.GetComponent<CoinScript>().pickedUp();
             score += coinScore;
-            other.gameObject.SetActive(false);
             scoreText.SetText(scorePrefix + score);
         }
         else if(other.CompareTag("Finish Line"))

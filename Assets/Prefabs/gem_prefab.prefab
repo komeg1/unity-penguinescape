@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1278905954147068997}
   - component: {fileID: 1278905954147068994}
   - component: {fileID: 7121847273748150453}
+  - component: {fileID: 227734848494130018}
   m_Layer: 6
   m_Name: gem_prefab
   m_TagString: Coin
@@ -122,3 +123,15 @@ CircleCollider2D:
   m_Offset: {x: -0.0069835484, y: 0.037710696}
   serializedVersion: 2
   m_Radius: 0.4017088
+--- !u!114 &227734848494130018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1278905954147068999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 239c6c013a6aef042ac5fea5cf29d8f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
