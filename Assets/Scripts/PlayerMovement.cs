@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody2D rigidBody;
     private SpriteRenderer spriteRenderer;
+    
     private CapsuleCollider2D collider;
 
     private const float IsGroundedRayLength = 0.5f;
@@ -113,6 +114,7 @@ public class PlayerMovement : MonoBehaviour
     {
         transform.Rotate(0,180f,0);
         isFacingRight = !isFacingRight;
+       
     }
 
     bool IsGrounded()
