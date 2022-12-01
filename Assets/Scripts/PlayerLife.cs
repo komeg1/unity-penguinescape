@@ -24,12 +24,12 @@ public class PlayerLife : MonoBehaviour
 
     IEnumerator Death()
     {
-        Debug.Log("Death anim");
+        movementScript.canMove = false;
+        GetComponent<Rigidbody2D>().isKinematic = true;
         yield return new WaitForSeconds(1);
-        Debug.Log("Death");
+
         gameObject.SetActive(false);
         deathText.gameObject.SetActive(true);
-        movementScript.canMove = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
