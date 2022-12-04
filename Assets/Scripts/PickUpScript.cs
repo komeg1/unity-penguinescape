@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CoinScript : MonoBehaviour
+public class PickUpScript : MonoBehaviour
 {
-    public void pickedUp()
+    public void PickedUp()
     {
         GetComponent<Animator>().SetBool("PickedUp", true);
     }

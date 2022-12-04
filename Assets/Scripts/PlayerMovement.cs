@@ -24,16 +24,21 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isWalking = false;
     private bool isFacingRight = true;
+    private bool isClimbing = false;
 
     private float coyoteTime = 0.2f; // Ile sekund za pozno mozna wykonac skok
     private float coyoteTimeCounter;
     private float jumpBufferTime = 0.2f; // Ile sekund za wczesnie mozna wykonac skok
     private float jumpBufferCounter;
     private float gravityScale;
+    private float horizontal;
+    private float vertical;
 
     private bool inWater = false;
 
     public bool canMove = true;
+
+
 
     private void Awake()
     {
@@ -50,9 +55,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (canMove)
         {
-            float horizontal = Input.GetAxis("Horizontal");
-            float vertical = Input.GetAxis("Vertical");
-            Move(horizontal);
+            horizontal = Input.GetAxis("Horizontal");
+            vertical = Input.GetAxis("Vertical");
+            Move();
             Jump();
             Fall();
         }
@@ -61,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool("isWalking", isWalking);
     }
 
-    void Move(float horizontal)
+    void Move()
     {
         if (horizontal != 0f)
         {
@@ -72,10 +77,22 @@ public class PlayerMovement : MonoBehaviour
             else if(horizontal >0 && isFacingRight == false)
                 Flip();
         }
-        if(inWater)
+        if (inWater)
             rigidBody.velocity = new Vector2(horizontal * maxWaterMoveSpeed, rigidBody.velocity.y);
         else
+        {
             rigidBody.velocity = new Vector2(horizontal * moveSpeed, rigidBody.velocity.y);
+            if (isClimbing)
+                rigidBody.velocity = new Vector2(horizontal * moveSpeed, vertical * moveSpeed);
+            else
+                isClimbing = false;
+
+
+            animator.SetBool("isClimbing", isClimbing);
+
+        }
+
+
 
         isWalking = (horizontal != 0);
     }
@@ -141,6 +158,11 @@ public class PlayerMovement : MonoBehaviour
         return Physics2D.Raycast(transform.position, Vector2.down, IsGroundedRayLength, jumpableGround.value);
     }
 
+    public void Climb(bool val)
+    {
+        isClimbing = val;
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Water"))
@@ -184,6 +206,8 @@ public class PlayerMovement : MonoBehaviour
                 transform.SetParent(null);
         }
     }
+
+
 
 
 

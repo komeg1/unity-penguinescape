@@ -36,12 +36,12 @@ public class PlayerScore : MonoBehaviour
     {
         if (other.CompareTag("Coin"))
         {
-            other.GetComponent<CoinScript>().pickedUp();
+            other.GetComponent<PickUpScript>().PickedUp();
             score += coinScore;
             scoreText.SetText(scorePrefix + score);
         }else if (other.CompareTag("Key"))
         {
-            other.GetComponent<CoinScript>().pickedUp();
+            other.GetComponent<PickUpScript>().PickedUp();
             keys += 1;
             keysText.SetText(keysPrefix + keys);
         }
@@ -57,7 +57,7 @@ public class PlayerScore : MonoBehaviour
             PlayerLife pl = GetComponent<PlayerLife>();
             pl.health += 1;
             pl.lifeCounterText.SetText(pl.healthCounterPrefix + pl.health);
-            other.GetComponent<CoinScript>().pickedUp();
+            other.GetComponent<PickUpScript>().PickedUp();
         }
     }
 }
