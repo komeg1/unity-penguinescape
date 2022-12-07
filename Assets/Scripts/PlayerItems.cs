@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,10 @@ public class PlayerItems : MonoBehaviour
 {
 
     public bool hasAxes = false;
+
+    //snieg
+    public float pickedSnowAmount = 0.0f;
+   [SerializeField] private float snowToAddAmount = 0.5f;
   
     
 
@@ -24,6 +29,12 @@ public class PlayerItems : MonoBehaviour
           
         }
         
+    }
+
+    public void UpdateSnowAmount()
+    {
+        if(pickedSnowAmount < 100.0f)
+        pickedSnowAmount += snowToAddAmount;
     }
 
     
