@@ -53,14 +53,15 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (canMove)
-        {
-            horizontal = Input.GetAxis("Horizontal");
-            vertical = Input.GetAxis("Vertical");
-            Move();
-            Jump();
-            Fall();
-        }
+        if (GameManager.instance.state != GameManager.GameState.Game)
+            return;
+
+        horizontal = Input.GetAxis("Horizontal");
+        vertical = Input.GetAxis("Vertical");
+
+        Move();
+        Jump();
+        Fall();
 
         animator.SetBool("isGrounded", IsGrounded());
         animator.SetBool("isWalking", isWalking);
@@ -206,9 +207,5 @@ public class PlayerMovement : MonoBehaviour
                 transform.SetParent(null);
         }
     }
-
-
-
-
 
 }

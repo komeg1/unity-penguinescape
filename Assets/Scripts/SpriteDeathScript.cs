@@ -21,6 +21,7 @@ public class SpriteDeathScript : MonoBehaviour
     }
     public void Death()//DIE
     {
+        GetComponent<Collider2D>().enabled = false;
         animator.SetBool(animatorDeathBoolName, true);
         StartCoroutine(DeathCoroutine());
     }

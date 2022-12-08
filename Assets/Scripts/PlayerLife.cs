@@ -1,41 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
 public class PlayerLife : MonoBehaviour
 {
 
-    [SerializeField] private TMPro.TextMeshProUGUI deathText;
-    [SerializeField] private GameObject lifeCounterTextObject;
+    [SerializeField] private Texture2D healthIcon;
+    [SerializeField] private int healthIconPixelsPerUnit;
+    [SerializeField] private GameObject healthBar;
     [SerializeField] public int health = 1;
-    public TMPro.TextMeshProUGUI lifeCounterText;
+    [SerializeField] private int maxHealth = 3;
+    [SerializeField] private float hurtKnockbackSpeed = 5f;
+
+    private List<Image> healthIconList = new();
 
     private Animator animator = null;
     private PlayerMovement movementScript;
     private SpriteRenderer renderer;
-    public string healthCounterPrefix = "Health: ";
+
     void Start()
     {
-        lifeCounterText = lifeCounterTextObject.GetComponent<TMPro.TextMeshProUGUI>();
-        deathText.gameObject.SetActive(false);
         animator = GetComponent<Animator>();
         movementScript = GetComponent<PlayerMovement>();
         renderer = GetComponent<SpriteRenderer>();
 
-        lifeCounterText.SetText(healthCounterPrefix + health);
+        createLifeBar();
+        for (int i = 0; i < health; i++)
+            healthIconList[i].enabled = true;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void Hurt()
     {
         Debug.Log("Hurt");
-        health -= 1;
-        lifeCounterText.SetText(healthCounterPrefix + health);
+        DecreaseHealth();      
         if (health <= 0)
             Death();
     }
@@ -48,22 +47,13 @@ public class PlayerLife : MonoBehaviour
     IEnumerator DeathCoroutine()
     {
         movementScript.canMove = false;
-        GetComponent<Rigidbody2D>().isKinematic = true;
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        rb.velocity = new Vector2(0,0);
+        rb.isKinematic = true;
         yield return new WaitForSeconds(1);
 
-       
-        deathText.gameObject.SetActive(true);
-        StartCoroutine(ReloadScene());
+        GameManager.instance.Lose();
         renderer.forceRenderingOff = true;
-        //gameObject.SetActive(false);
-
-    }
-    IEnumerator ReloadScene()
-    {
-        yield return new WaitForSeconds(1);
-        SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().buildIndex);
-        Resources.UnloadUnusedAssets();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -78,6 +68,7 @@ public class PlayerLife : MonoBehaviour
             if (transform.position.y > collision.transform.position.y)
             {
                 collision.gameObject.GetComponent<SpriteDeathScript>().Death();
+                GameManager.instance.IncreaseKilledEnemies();
             }
             else
             {
@@ -96,5 +87,61 @@ public class PlayerLife : MonoBehaviour
         {
             Hurt();
         }
+        else if (collision.collider.CompareTag("KillableDamageSource"))
+        {
+            if (transform.position.y > collision.transform.position.y)
+            {
+                collision.gameObject.GetComponent<SpriteDeathScript>().Death();
+                GameManager.instance.IncreaseKilledEnemies();
+            }
+            else
+            {
+                Hurt();
+            }
+        }
+        else if (collision.collider.CompareTag("InstaDeath"))
+        {
+            health = 0;
+            Hurt();
+        }
+    }
+
+    void createLifeBar()
+    {
+        for (int i = 0; i < maxHealth; i++)
+        {
+            GameObject newHealthIcon = new GameObject();
+            RectTransform healthIconTransform = newHealthIcon.AddComponent<RectTransform>();
+            healthIconTransform.sizeDelta = new Vector2(50, 50);
+
+            Image heartIconImage = newHealthIcon.AddComponent<Image>();
+            healthIconList.Add(heartIconImage);
+
+            Sprite healthIconSprite = Sprite.Create(healthIcon, new Rect(0f, 0f, healthIcon.width, healthIcon.height), new Vector2(0f, 0f), healthIconPixelsPerUnit);
+            heartIconImage.sprite = healthIconSprite;
+            heartIconImage.enabled = false;
+
+            newHealthIcon.transform.SetParent(healthBar.transform);
+            newHealthIcon.transform.localPosition = new Vector2(healthIconTransform.sizeDelta.x/2 + i * healthIconTransform.sizeDelta.x, 0f);
+        }
+
+    }
+
+    public void IncreaseHealth()
+    {
+        if(health >= 0 && health < healthIconList.Count)
+            healthIconList[health].enabled = true;
+        health++;
+    }
+    public void DecreaseHealth()
+    {
+        health--;
+        if (health >= 0 && health < healthIconList.Count)
+            healthIconList[health].enabled = false;
+    }
+
+    public bool MaxHealth()
+    {
+        return health == maxHealth;
     }
 }
