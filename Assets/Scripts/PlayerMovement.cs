@@ -208,4 +208,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void BlockMove(bool val)
+    {
+        if(val)
+            moveSpeed =0;
+        else 
+            moveSpeed = 8;
+    }
 }

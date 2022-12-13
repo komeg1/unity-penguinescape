@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour
     private int score = 0;
     private int keys = 0;
     private int killedEnemies = 0;
+
+    private bool pauseTime = false;
     
     public static GameManager instance;
 
@@ -56,17 +58,20 @@ public class GameManager : MonoBehaviour
             else if (state == GameState.Pause)
                 Continue();
         }
-        time += Time.deltaTime;
+        if(pauseTime == false )
+            time += Time.deltaTime;
         timeText.SetText(string.Format("{0:00}:{1:00}", (int)time / 60, (int)time % 60));
     }
     public void Continue()
     {
+        pauseTime = false;
         pauseCanvas.enabled = false;
         inGameCanvas.enabled = true;
         state = GameState.Game;
     }
     public void Pause()
     {
+        pauseTime = true;
         inGameCanvas.enabled = false;
         pauseCanvas.enabled = true;
         state = GameState.Pause;
