@@ -34,7 +34,7 @@ public class PlayerLife : MonoBehaviour
     public void Hurt()
     {
         Debug.Log("Hurt");
-        DecreaseHealth();      
+        DecreaseHealth();
         if (health <= 0)
             Death();
     }
@@ -48,7 +48,7 @@ public class PlayerLife : MonoBehaviour
     {
         movementScript.canMove = false;
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        rb.velocity = new Vector2(0,0);
+        rb.velocity = new Vector2(0, 0);
         rb.isKinematic = true;
         yield return new WaitForSeconds(1);
 
@@ -122,14 +122,14 @@ public class PlayerLife : MonoBehaviour
             heartIconImage.enabled = false;
 
             newHealthIcon.transform.SetParent(healthBar.transform);
-            newHealthIcon.transform.localPosition = new Vector2(healthIconTransform.sizeDelta.x/2 + i * healthIconTransform.sizeDelta.x, 0f);
+            newHealthIcon.transform.localPosition = new Vector2(healthIconTransform.sizeDelta.x / 2 + i * healthIconTransform.sizeDelta.x, 0f);
         }
 
     }
 
     public void IncreaseHealth()
     {
-        if(health >= 0 && health < healthIconList.Count)
+        if (health >= 0 && health < healthIconList.Count)
             healthIconList[health].enabled = true;
         health++;
     }

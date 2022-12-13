@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -71,11 +69,11 @@ public class PlayerMovement : MonoBehaviour
     {
         if (horizontal != 0f)
         {
-                //Zamienilem metode flip, na rotowanie obiektu o 180st w Y, zeby moc dodac obiekt na rece, z ktorej wylatuja pociski,
-                //bo inaczej obracal sie sam sprite, a reka caly czas wskazywala na jeden kierunek
-            if (horizontal < 0 && isFacingRight)    
-                Flip();       
-            else if(horizontal >0 && isFacingRight == false)
+            //Zamienilem metode flip, na rotowanie obiektu o 180st w Y, zeby moc dodac obiekt na rece, z ktorej wylatuja pociski,
+            //bo inaczej obracal sie sam sprite, a reka caly czas wskazywala na jeden kierunek
+            if (horizontal < 0 && isFacingRight)
+                Flip();
+            else if (horizontal > 0 && isFacingRight == false)
                 Flip();
         }
         if (inWater)
@@ -113,7 +111,7 @@ public class PlayerMovement : MonoBehaviour
             jumpBufferCounter -= Time.deltaTime;
 
         //Skoki sa buforowane, jezeli wcisniemy skok kilka klatek zbyt wczesnie i tak zostanie on zarejestrowany
-        if(inWater)
+        if (inWater)
         {
             if (Input.GetButton("Jump"))
             {
@@ -150,7 +148,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Flip()
     {
-        transform.Rotate(0,180f,0);
+        transform.Rotate(0, 180f, 0);
         isFacingRight = !isFacingRight;
     }
 
@@ -171,7 +169,7 @@ public class PlayerMovement : MonoBehaviour
             inWater = true; // ustawiamy flagê, która mo¿e siê przydaæ gdzie indziej
             rigidBody.gravityScale = gravityScale * waterGravityScale; // wolniejsze opadanie w wodzie
         }
-        else if(other.CompareTag("MovingPlatform"))
+        else if (other.CompareTag("MovingPlatform"))
         {
             Debug.Log("On a platform!");
             transform.SetParent(other.transform);
@@ -180,7 +178,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.CompareTag("Water")) 
+        if (other.CompareTag("Water"))
         {
             rigidBody.velocity = new Vector2( // W wodzie szybkosc ruchu jest ograniczona
                 Mathf.Clamp(rigidBody.velocity.x, -maxWaterMoveSpeed, maxWaterMoveSpeed),
@@ -201,7 +199,7 @@ public class PlayerMovement : MonoBehaviour
                 rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpSpeed);
             }
         }
-        else if(collision.CompareTag("MovingPlatform"))
+        else if (collision.CompareTag("MovingPlatform"))
         {
             if (transform.parent = collision.transform)
                 transform.SetParent(null);

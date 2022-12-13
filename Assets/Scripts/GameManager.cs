@@ -1,10 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using System;
 using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -32,7 +30,7 @@ public class GameManager : MonoBehaviour
     private int killedEnemies = 0;
 
     private bool pauseTime = false;
-    
+ 
     public static GameManager instance;
 
     private void Awake()
@@ -51,7 +49,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (state == GameState.Game)
                 Pause();
