@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PickUpScript : MonoBehaviour
@@ -11,6 +9,6 @@ public class PickUpScript : MonoBehaviour
 
     public void disappear()
     {
-        this.gameObject.active = false;
+        this.gameObject.SetActive(false);
     }
 }

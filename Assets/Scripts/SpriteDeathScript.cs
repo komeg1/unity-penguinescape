@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpriteDeathScript : MonoBehaviour
@@ -7,7 +6,7 @@ public class SpriteDeathScript : MonoBehaviour
     [SerializeField] private string animatorDeathBoolName;
     [SerializeField] private float delay;
     private Animator animator;
-    
+
 
     private void Start()
     {
@@ -21,7 +20,11 @@ public class SpriteDeathScript : MonoBehaviour
     }
     public void Death()//DIE
     {
+        GetComponent<Collider2D>().enabled = false;
         animator.SetBool(animatorDeathBoolName, true);
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        rb.velocity = new Vector2(0, 0);
+        rb.isKinematic = true;
         StartCoroutine(DeathCoroutine());
     }
 }
