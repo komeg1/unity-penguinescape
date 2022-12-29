@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
 
-    public enum GameState { Pause, Game, Win, Lose };
+    public enum GameState { Pause, Game, Win, Lose, Options };
     public int cherryScore = 10;
     public int maxKeys = 3;
     private float time = 0f;
@@ -20,10 +20,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMP_Text timeText;
     [SerializeField] private TMP_Text killedEnemiesText;
     [SerializeField] private Canvas pauseCanvas;
+    [SerializeField] private Canvas optionsCanvas;
     [SerializeField] private Canvas winCanvas;
     [SerializeField] private Canvas loseCanvas;
     [SerializeField] private GameObject keysBar;
-
+    [SerializeField] private TMP_Text qualityText;
     [SerializeField] private TMP_Text winScoreText;
     [SerializeField] private TMP_Text winHighScoreText;
 
@@ -43,11 +44,14 @@ public class GameManager : MonoBehaviour
 
         pauseCanvas.enabled = false;
         inGameCanvas.enabled = false;
+        optionsCanvas.enabled = false;
         winCanvas.enabled = false;
         loseCanvas.enabled = false;
 
         instance = this;
 
+        SetQualityText();
+        SetVolume(0.5f);
         Continue();
     }
 
@@ -66,9 +70,12 @@ public class GameManager : MonoBehaviour
     }
     public void Continue()
     {
+        
         pauseTime = false;
         pauseCanvas.enabled = false;
+        optionsCanvas.enabled = false;
         inGameCanvas.enabled = true;
+        GUI.FocusControl(null);
         state = GameState.Game;
         Time.timeScale = 1;
     }
@@ -107,6 +114,13 @@ public class GameManager : MonoBehaviour
             winScoreText.text = "Score: " + score;
             winHighScoreText.text = "Best Score: " + highScore;
         }
+    }
+    public void Options()
+    {
+        inGameCanvas.enabled = false;
+        optionsCanvas.enabled = true;
+        state = GameState.Options;
+        Time.timeScale = 0;
     }
 
     public void AddPoints(int points)
@@ -173,9 +187,32 @@ public class GameManager : MonoBehaviour
     {
         ReloadScene();
     }
-    
+    public void OnOptionsButtonPressed()
+    {
+        Options();
+    }
     public void OnMainMenuButtonPressed()
     {
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public void OnPlusButtonPressed()
+    {
+        QualitySettings.IncreaseLevel();
+        SetQualityText();
+    }
+    public void OnMinusButtonPressed()
+    {
+        QualitySettings.DecreaseLevel();
+        SetQualityText();
+    }
+    public void SetQualityText()
+    {
+        qualityText.text="Quality: " + QualitySettings.names[QualitySettings.GetQualityLevel()];
+    }
+
+    public void SetVolume( float volume )
+    {
+        AudioListener.volume = volume;
     }
 }
