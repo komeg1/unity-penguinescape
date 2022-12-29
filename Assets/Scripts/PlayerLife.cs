@@ -12,9 +12,11 @@ public class PlayerLife : MonoBehaviour
     [SerializeField] public int health = 1;
     [SerializeField] private int maxHealth = 3;
     [SerializeField] private float hurtKnockbackSpeed = 5f;
+    [SerializeField] AudioClip deathSound;
 
     private List<Image> healthIconList = new();
 
+    private AudioSource audioSource;
     private Animator animator = null;
     private PlayerMovement movementScript;
     private SpriteRenderer renderer;
@@ -24,6 +26,7 @@ public class PlayerLife : MonoBehaviour
         animator = GetComponent<Animator>();
         movementScript = GetComponent<PlayerMovement>();
         renderer = GetComponent<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>();
 
         createLifeBar();
         for (int i = 0; i < health; i++)
@@ -47,6 +50,7 @@ public class PlayerLife : MonoBehaviour
     IEnumerator DeathCoroutine()
     {
         movementScript.canMove = false;
+        audioSource.PlayOneShot(deathSound, AudioListener.volume);
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         rb.velocity = new Vector2(0, 0);
         rb.isKinematic = true;

@@ -6,7 +6,6 @@ public class PlayerPickups : MonoBehaviour
     private AudioSource audioSource;
     [SerializeField] AudioClip bonusSound;
     [SerializeField] AudioClip victorySound;
-    [SerializeField] AudioClip deathSound;
     [SerializeField] AudioClip keySound;
     [SerializeField] AudioClip heartSound;
     private void Start()
@@ -27,6 +26,7 @@ public class PlayerPickups : MonoBehaviour
         {
             other.GetComponent<PickUpScript>().PickedUp();
             GameManager.instance.AddKey();
+            audioSource.PlayOneShot(keySound, AudioListener.volume);
         }
         else if (other.CompareTag("Life"))
         {
@@ -34,6 +34,7 @@ public class PlayerPickups : MonoBehaviour
                 return;
             playerLifeScript.IncreaseHealth();
             other.GetComponent<PickUpScript>().PickedUp();
+            audioSource.PlayOneShot(heartSound, AudioListener.volume);
         }
         else if (other.CompareTag("IceAxes"))
         {
@@ -44,6 +45,7 @@ public class PlayerPickups : MonoBehaviour
         {
             if (GameManager.instance.enoughKeys())
             {
+                audioSource.PlayOneShot(victorySound, AudioListener.volume);
                 GameManager.instance.AddPoints(playerLifeScript.health * 100);
                 GameManager.instance.Win();
             }
