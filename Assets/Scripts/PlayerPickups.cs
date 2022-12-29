@@ -3,10 +3,16 @@ using UnityEngine;
 public class PlayerPickups : MonoBehaviour
 {
     private PlayerLife playerLifeScript;
-
+    private AudioSource audioSource;
+    [SerializeField] AudioClip bonusSound;
+    [SerializeField] AudioClip victorySound;
+    [SerializeField] AudioClip deathSound;
+    [SerializeField] AudioClip keySound;
+    [SerializeField] AudioClip heartSound;
     private void Start()
     {
         playerLifeScript = GetComponent<PlayerLife>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -15,6 +21,7 @@ public class PlayerPickups : MonoBehaviour
         {
             other.GetComponent<PickUpScript>().PickedUp();
             GameManager.instance.AddPoints(GameManager.instance.cherryScore);
+            audioSource.PlayOneShot(bonusSound, AudioListener.volume);
         }
         else if (other.CompareTag("Key"))
         {
