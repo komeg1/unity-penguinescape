@@ -89,6 +89,7 @@ public class PlayerLife : MonoBehaviour
         }
         else if (collision.collider.CompareTag("KillableDamageSource"))
         {
+            Debug.Log("Killable enemy contact");
             if (transform.position.y > collision.transform.position.y)
             {
                 collision.gameObject.GetComponent<SpriteDeathScript>().Death();

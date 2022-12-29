@@ -22,6 +22,9 @@ public class SpriteDeathScript : MonoBehaviour
     {
         GetComponent<Collider2D>().enabled = false;
         animator.SetBool(animatorDeathBoolName, true);
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        rb.velocity = new Vector2(0, 0);
+        rb.isKinematic = true;
         StartCoroutine(DeathCoroutine());
     }
 }

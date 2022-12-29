@@ -37,6 +37,7 @@ public class PlayerPickups : MonoBehaviour
         {
             if (GameManager.instance.enoughKeys())
             {
+                GameManager.instance.AddPoints(playerLifeScript.health * 100);
                 GameManager.instance.Win();
             }
         }

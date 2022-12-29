@@ -23,6 +23,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Canvas winCanvas;
     [SerializeField] private Canvas loseCanvas;
     [SerializeField] private GameObject keysBar;
+
+    [SerializeField] private TMP_Text winScoreText;
+    [SerializeField] private TMP_Text winHighScoreText;
+
     private List<Image> keysList = new();
 
     private int score = 0;
@@ -66,6 +70,7 @@ public class GameManager : MonoBehaviour
         pauseCanvas.enabled = false;
         inGameCanvas.enabled = true;
         state = GameState.Game;
+        Time.timeScale = 1;
     }
     public void Pause()
     {
@@ -73,18 +78,35 @@ public class GameManager : MonoBehaviour
         inGameCanvas.enabled = false;
         pauseCanvas.enabled = true;
         state = GameState.Pause;
+        Time.timeScale = 0;
     }
     public void Lose()
     {
         inGameCanvas.enabled = false;
         loseCanvas.enabled = true;
         state = GameState.Lose;
+        Time.timeScale = 0;
     }
     public void Win()
     {
         inGameCanvas.enabled = false;
         winCanvas.enabled = true;
         state = GameState.Win;
+        Time.timeScale = 0;
+
+        Scene currentScene = SceneManager.GetActiveScene();
+        if(currentScene.name == "Level1")
+        {
+            int highScore = PlayerPrefs.GetInt("HighScore");
+            if (highScore < score)
+            {
+                PlayerPrefs.SetInt("HighScore", score);
+                highScore = score;
+            }
+
+            winScoreText.text = "Score: " + score;
+            winHighScoreText.text = "Best Score: " + highScore;
+        }
     }
 
     public void AddPoints(int points)
@@ -141,5 +163,19 @@ public class GameManager : MonoBehaviour
             newKeyIcon.transform.SetParent(keysBar.transform);
             newKeyIcon.transform.localPosition = new Vector2(keyIconTransform.sizeDelta.x / 2 + i * keyIconTransform.sizeDelta.x, 0f);
         }
+    }
+
+    public void OnResumeButtonPressed()
+    {
+        Continue();
+    }
+    public void OnRestartButtonPressed()
+    {
+        ReloadScene();
+    }
+    
+    public void OnMainMenuButtonPressed()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }
