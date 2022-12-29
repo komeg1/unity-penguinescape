@@ -176,6 +176,6 @@ public class GameManager : MonoBehaviour
     
     public void OnMainMenuButtonPressed()
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadSceneAsync("MainMenu");
     }
 }
