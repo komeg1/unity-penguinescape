@@ -6,13 +6,18 @@ public class Weapon : MonoBehaviour
     [SerializeField] private Transform hand;
     [SerializeField] private GameObject bulletPrefab;
 
-    private int ammoAmount = 10;
+    private PlayerItems items;
+
+    private void Start()
+    {
+        items = GetComponent<PlayerItems>();
+    }
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetMouseButtonDown(0))
         {
-            if (ammoAmount > 0)
+            if (items.pickedSnowAmount >= 1)
                 Shoot();
 
         }
@@ -20,7 +25,7 @@ public class Weapon : MonoBehaviour
 
     void Shoot()
     {
-        Instantiate(bulletPrefab, hand.position, hand.rotation);
-        ammoAmount--;
+        Instantiate(bulletPrefab, hand.position, Quaternion.identity);
+        items.pickedSnowAmount -= 0.5f;
     }
 }

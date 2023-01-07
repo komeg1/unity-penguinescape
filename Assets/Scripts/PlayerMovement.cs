@@ -191,6 +191,17 @@ public class PlayerMovement : MonoBehaviour
                 Mathf.Clamp(rigidBody.velocity.y, -maxWaterMoveSpeed, maxWaterMoveSpeed)
                 );
         }
+        else if (other.CompareTag("ClimbingWall"))
+        {
+            if (GetComponent<PlayerItems>().hasAxes)
+            {
+                if (Input.GetKeyDown(KeyCode.W))
+                {
+                    Debug.Log("Pressed W");
+                    Climb(true);
+                }
+            }
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -209,6 +220,10 @@ public class PlayerMovement : MonoBehaviour
         {
             if (transform.parent = collision.transform)
                 transform.SetParent(null);
+        }
+        else if (collision.CompareTag("ClimbingWall"))
+        {
+            Climb(false);
         }
     }
 

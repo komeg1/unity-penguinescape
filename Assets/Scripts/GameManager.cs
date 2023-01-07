@@ -42,6 +42,8 @@ public class GameManager : MonoBehaviour
     {
         CreateKeysBar();
 
+        Application.targetFrameRate = 60;
+
         pauseCanvas.enabled = false;
         inGameCanvas.enabled = false;
         optionsCanvas.enabled = false;

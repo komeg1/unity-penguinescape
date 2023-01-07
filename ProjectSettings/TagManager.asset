@@ -6,6 +6,16 @@ TagManager:
   tags:
   - Coin
   - Water
+  - ClimbingWall
+  - Key
+  - Life
+  - MovingPlatform
+  - DamageSource
+  - KillableDamageSource
+  - Finish Line
+  - IceAxes
+  - InstaDeath
+  - Snowball
   layers:
   - Default
   - TransparentFX
@@ -14,7 +24,7 @@ TagManager:
   - Water
   - UI
   - Coin
-  - 
+  - SnowBall
   - 
   - 
   - 

@@ -19,8 +19,6 @@ public class SnowCollector : MonoBehaviour
 
     private void OnParticleTrigger()
     {
-
-
         int triggeredParticles = snowParticles.GetTriggerParticles(ParticleSystemTriggerEventType.Enter, particlesList);
         if (Input.GetKey(KeyCode.E) && player.GetComponent<PlayerItems>().pickedSnowAmount < 100)
         {
