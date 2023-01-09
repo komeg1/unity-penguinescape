@@ -120,17 +120,17 @@ public class PlayerMovement : MonoBehaviour
         if (inWater)
         {
             if (Input.GetButton("Jump"))
-          
-                rigidBody.velocity += new Vector2(0, jumpSpeed * Time.deltaTime);
-        
+            {
+                rigidBody.velocity += Vector2.up * jumpSpeed * Time.deltaTime*2;
+            }
         }
         else
         {
             if (jumpBufferCounter > 0f&& (coyoteTimeCounter > 0f||isClimbing))
             {
              
-                    rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpSpeed);
-                    jumpBufferCounter = 0f;
+                rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpSpeed);
+                jumpBufferCounter = 0f;
                 isClimbing = false;
 
             }
