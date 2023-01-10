@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class WeightedButton : MonoBehaviour
 {
-    [SerializeField] GateOpenerScript gateOpener;
+    GateOpenerScript gateOpener;
     Animator animator;
 
     private void Start()
     {
+        gateOpener = GetComponent<GateOpenerScript>();
         animator = GetComponent<Animator>();
     }
     void Update()

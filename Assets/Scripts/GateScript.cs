@@ -8,14 +8,19 @@ using UnityEngine;
 
 public class GateScript : MonoBehaviour
 {
-    [SerializeField] GateOpenerScript[] gateAffectors;
+    [SerializeField] GateOpenerScript[] gateAffectorsAND;
+    [SerializeField] GateOpenerScript[] gateAffectorsOR;
     [SerializeField] GameObject gatePartPrefab;
     [SerializeField] int height = 2;
     [SerializeField] float openTimePartSeconds = 0.3f;
+    [SerializeField] bool openDirectionUp = false;
+    [SerializeField] float closeDelay = 0.3f;
+    [SerializeField] float openDelay = 0.0f;
 
     public bool targetOpen = false;
     public bool busy = false;
     public bool open = false;
+    public bool interrupt = false;
 
     public GameObject[] gateParts;
 
@@ -48,34 +53,39 @@ public class GateScript : MonoBehaviour
 
     IEnumerator OpenCloseAnimation(bool opened)
     {
-        busy = true;
         if (opened)
+            yield return new WaitForSeconds(openDelay);
+        else
+            yield return new WaitForSeconds(closeDelay); 
+
+        busy = true;
+
+        if ((openDirectionUp && opened) || (!openDirectionUp && !opened))// update from bottom to top
         {
             collider.enabled = !opened;
             renderer.enabled = !opened;
             for (int i = 0; i < gateParts.Length; i ++)
             {
-                yield return new WaitForSeconds(openTimePartSeconds);
                 gateParts[i].GetComponent<BoxCollider2D>().enabled = !opened;
                 gateParts[i].GetComponent<SpriteRenderer>().enabled = !opened;
-                Debug.Log("Changed state of part " + i + " to " + opened);
+                yield return new WaitForSeconds(openTimePartSeconds);
             }
         }
-        else if(!opened)
+        else if((!openDirectionUp && opened) || (openDirectionUp && !opened))// update from top to bottom
         {
 
             for (int i = gateParts.Length-1; i >= 0; i --)
             {
-               
-                gateParts[i].GetComponent<BoxCollider2D>().enabled = !opened;
-                gateParts[i].GetComponent<SpriteRenderer>().enabled = !opened;
                 yield return new WaitForSeconds(openTimePartSeconds);
+                gateParts[i].GetComponent<BoxCollider2D>().enabled = !opened;
+                gateParts[i].GetComponent<SpriteRenderer>().enabled = !opened;               
             }
             collider.enabled = !opened;
             renderer.enabled = !opened;
         }
         open = opened;
         busy = false;
+
         Debug.Log("Changed state: Opened-" + open);
     }
 
@@ -86,19 +96,32 @@ public class GateScript : MonoBehaviour
             StartCoroutine(OpenCloseAnimation(targetOpen));         
         }
     }
-
-    public void UpdateGate()
-    { 
-        bool state = true;
-        foreach(GateOpenerScript gate in gateAffectors)
-        {
+    public bool checkAND()
+    {
+        foreach (GateOpenerScript gate in gateAffectorsAND)
             if (!gate.open)
-            {
-                state = false;
-                break;
-            }
-        }
-        targetOpen = state;
+                return false;
+        return true;
+    }
+    public bool checkOR()
+    {
+        foreach (GateOpenerScript gate in gateAffectorsOR)
+            if (gate.open)
+                return true;
+        return false;
+    }
+    public void CheckAffectors()
+    {
+        bool or = false, and = false;
+        if (gateAffectorsAND.Length > 0)
+            and = checkAND();
+        if(gateAffectorsOR.Length > 0)
+            or = checkOR();
+        targetOpen = or || and;
+    }
+    public void UpdateGate()
+    {
+        CheckAffectors();
         Debug.Log("Updating- target state- " + targetOpen);
     }
 }
