@@ -5,7 +5,7 @@ using UnityEngine;
 public class SnowBlockBuilder : MonoBehaviour
 {
     public GameObject spherePrefab;
-
+    
     // A reference to the current sphere
     private GameObject sphere;
     private Rigidbody2D sphereRigidBody;
@@ -28,6 +28,7 @@ public class SnowBlockBuilder : MonoBehaviour
     [SerializeField] float snowballMassToScaleMultiplier = 3f;
     [SerializeField] Vector3 snowballInitialScale = new Vector3(0.2f, 0.2f, 0.2f);
     [SerializeField] float snowballDeadlyVelocity = 0f;
+    [SerializeField] public SnowBar snowBar;
 
     bool hasBeenDestroyed = false;
     float totalSphereCost = 0f;
@@ -77,6 +78,8 @@ public class SnowBlockBuilder : MonoBehaviour
                 sphere.transform.position = transform.position + rotation * (Vector3.Magnitude(sphere.transform.localScale) / 4 + 0.5f);
                 //GetComponent<PlayerMovement>().BlockMove(true);
             }
+            snowBar.SetSnow(items.pickedSnowAmount);
+            
         }
         else
         {
