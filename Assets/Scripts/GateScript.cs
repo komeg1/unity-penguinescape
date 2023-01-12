@@ -86,7 +86,7 @@ public class GateScript : MonoBehaviour
         open = opened;
         busy = false;
 
-        Debug.Log("Changed state: Opened-" + open);
+        //Debug.Log("Changed state: Opened-" + open);
     }
 
     void ChangeState()
@@ -122,6 +122,6 @@ public class GateScript : MonoBehaviour
     public void UpdateGate()
     {
         CheckAffectors();
-        Debug.Log("Updating- target state- " + targetOpen);
+       // Debug.Log("Updating- target state- " + targetOpen);
     }
 }
