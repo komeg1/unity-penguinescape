@@ -9,6 +9,7 @@ public class SnowBlockBuilder : MonoBehaviour
     // A reference to the current sphere
     private GameObject sphere;
     private Rigidbody2D sphereRigidBody;
+    private Collider2D sphereCollider;
     private PlayerItems items;
 
     [SerializeField] private ParticleSystem destroyParticleSystem;
@@ -39,7 +40,7 @@ public class SnowBlockBuilder : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(1))
         { 
             if (items.pickedSnowAmount >= snowballStartCost)
             {
@@ -51,9 +52,14 @@ public class SnowBlockBuilder : MonoBehaviour
                     Vector3 playerPos = transform.position;
                     sphere = Instantiate(spherePrefab, playerPos, Quaternion.identity);
                     sphereRigidBody = sphere.GetComponent<Rigidbody2D>();
+                    sphereCollider = sphere.GetComponent<Collider2D>();
                     sphereRigidBody.mass = snowballInitialMass;
+                    sphereRigidBody.simulated = false;
+                    sphereCollider.enabled = false;
                     sphere.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
                     buildingTime = 0f;
+
+                    sphere.layer = LayerMask.NameToLayer("Water");
 
                     items.pickedSnowAmount -= snowballStartCost;
                     totalSphereCost += snowballStartCost;
@@ -73,6 +79,7 @@ public class SnowBlockBuilder : MonoBehaviour
             if (sphere != null)
             {
                 //move the sphere around the player
+                
                 mousePos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10f));
                 rotation = (mousePos - transform.position).normalized;
                 sphere.transform.position = transform.position + rotation * (Vector3.Magnitude(sphere.transform.localScale) / 4 + 0.5f);
@@ -85,6 +92,9 @@ public class SnowBlockBuilder : MonoBehaviour
         {
             if (sphere != null)
             {
+                sphere.layer = LayerMask.NameToLayer("Ground");
+                sphereRigidBody.simulated = true;
+                sphereCollider.enabled = true;
                 mousePos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10f));
                 rotation = (mousePos - transform.position).normalized;
 
