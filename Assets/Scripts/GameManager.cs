@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
         instance = this;
 
         SetQualityText();
-        SetVolume(0.5f);
+        SetVolume(0.35f);
         Continue();
     }
 

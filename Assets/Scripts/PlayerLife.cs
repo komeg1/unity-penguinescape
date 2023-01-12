@@ -13,6 +13,7 @@ public class PlayerLife : MonoBehaviour
     [SerializeField] private int maxHealth = 3;
     [SerializeField] private float hurtKnockbackSpeed = 5f;
     [SerializeField] AudioClip deathSound;
+    [SerializeField] AudioClip damageSound;
 
     private List<Image> healthIconList = new();
 
@@ -38,6 +39,7 @@ public class PlayerLife : MonoBehaviour
     {
         Debug.Log("Hurt");
         DecreaseHealth();
+        audioSource.PlayOneShot(damageSound, AudioListener.volume);
         if (health <= 0)
             Death();
     }
