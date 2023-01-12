@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1600205601884418202}
   - component: {fileID: 1600205601884418203}
   - component: {fileID: -5364056519136812595}
+  - component: {fileID: 4017237297966601369}
   m_Layer: 0
   m_Name: WeightedButton
   m_TagString: Untagged
@@ -74,7 +75,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1114530411
-  m_SortingLayer: -1
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: -2028568789, guid: bb8a2095551428e45ad21eff6d58d315, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -99,7 +100,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76019ab74239fc243b371f08edc9fdbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gateOpener: {fileID: 1600205601884418203}
 --- !u!114 &1600205601884418203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,3 +149,23 @@ PolygonCollider2D:
       - {x: 0.49878693, y: -0.504717}
       - {x: 0.31348228, y: -0.4354583}
   m_UseDelaunayMesh: 0
+--- !u!95 &4017237297966601369
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1600205601884418200}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ea1134e7081d178449c42496305e59be, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

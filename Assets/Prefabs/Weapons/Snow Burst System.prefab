@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3557750987002550183}
   - component: {fileID: 3557750987002550181}
   m_Layer: 0
-  m_Name: Particle System
+  m_Name: Snow Burst System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

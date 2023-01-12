@@ -59,15 +59,18 @@ TagManager:
   - name: TerrainBackground
     uniqueID: 3233819813
     locked: 0
-  - name: Terrain
-    uniqueID: 710931969
-    locked: 0
-  - name: TerrainDecorations
-    uniqueID: 3180436885
-    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: UnderWaterTerrain
+    uniqueID: 2204781419
+    locked: 0
+  - name: Terrain
+    uniqueID: 710931969
+    locked: 0
   - name: Water
     uniqueID: 442557789
+    locked: 0
+  - name: TerrainDecorations
+    uniqueID: 3180436885
     locked: 0

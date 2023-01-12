@@ -99,10 +99,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd895519623c5d449bcd299044e67a46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gateAffectors: []
-  gatePartPrefab: {fileID: 0}
+  gateAffectorsAND: []
+  gateAffectorsOR: []
+  gatePartPrefab: {fileID: 7451946667319315033, guid: 5a0463127f9624e45b1ab3f033bba29c, type: 3}
   height: 3
   openTimePartSeconds: 0.3
+  openDirectionUp: 0
+  closeDelay: 0.3
+  openDelay: 0
+  targetOpen: 0
+  busy: 0
+  open: 0
+  interrupt: 0
   gateParts: []
 --- !u!251 &8253507578187956787
 PlatformEffector2D:

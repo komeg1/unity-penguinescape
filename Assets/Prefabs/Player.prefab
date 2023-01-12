@@ -73,7 +73,7 @@ Transform:
   - {fileID: 2246801030908641208}
   - {fileID: 2246801032046857074}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2246801031415625605
 SpriteRenderer:
@@ -255,6 +255,7 @@ MonoBehaviour:
   maxHealth: 3
   hurtKnockbackSpeed: 5
   deathSound: {fileID: 8300000, guid: a235d590ef2a04d1b85b61ef4c21337c, type: 3}
+  damageSound: {fileID: 8300000, guid: 3becec1909f194046945d85ac1077772, type: 3}
 --- !u!114 &2246801031415625619
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -268,9 +269,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasAxes: 0
-  snowToAddAmount: 0.1
+  snowParticleValue: 0.5
   startingSnow: 5
   pickedSnowAmount: 0
+  maxSnowAmount: 100
 --- !u!114 &2246801031415625618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -284,6 +286,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spherePrefab: {fileID: 5688395706455210593, guid: d9f424ad760c3c24491c623da1fc2956, type: 3}
+  destroyParticleSystem: {fileID: 0}
+  snowballStartCost: 1
+  snowballBuildingDelay: 0.3
+  snowballMaxMass: 50
+  snowballMassIncrease: 10
+  snowballBuildCost: 1
+  snowballMassToScaleMultiplier: 3
+  snowballInitialScale: {x: 0.2, y: 0.2, z: 0.2}
+  snowballDeadlyVelocity: 0
 --- !u!82 &2246801031415625617
 AudioSource:
   m_ObjectHideFlags: 0

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4741394144959883138}
   - component: {fileID: 8009168482717680790}
   m_Layer: 0
-  m_Name: Swing
+  m_Name: Swingx2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -238,7 +238,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 9cb888f97c82261459bb7774c77fe2ce, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5c8ad8f0a429ead4da4f8f9b9c1b8040, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -285,7 +285,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 10, y: 4}
+    oldSize: {x: 20, y: 4}
     newSize: {x: 1.6, y: 0.64}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -293,14 +293,14 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 3.996129, y: 1.9979403}
-      - {x: 3.9902084, y: 1.0137575}
-      - {x: -3.995109, y: 1.0077657}
-      - {x: -3.9951096, y: 2}
-      - {x: -5, y: 2}
-      - {x: -5, y: 0}
-      - {x: 5, y: 0}
-      - {x: 5, y: 2}
+    - - {x: 9.019438, y: 2.009383}
+      - {x: 9.013517, y: 1.0252001}
+      - {x: -9.001415, y: 1.0353234}
+      - {x: -9.019788, y: 2.009186}
+      - {x: -10.015492, y: 2.0091858}
+      - {x: -10.006308, y: 0}
+      - {x: 10.011866, y: -0.011442661}
+      - {x: 10.011867, y: 2.022885}
   m_UseDelaunayMesh: 0
 --- !u!114 &5745295720697495278
 MonoBehaviour:

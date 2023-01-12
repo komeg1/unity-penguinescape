@@ -21,10 +21,10 @@ public class SnowBlockBuilder : MonoBehaviour
     [SerializeField] float snowballStartCost = 1f;
     [SerializeField] float snowballBuildingDelay = 0.3f;
     float buildingTime = 0f;
-    bool buildingSnowball = false;
+    [SerializeField] float snowballInitialMass = 1f;
     [SerializeField] float snowballMaxMass = 50f;
     [SerializeField] float snowballMassIncrease = 10f;
-    [SerializeField] float snowballBuildCost = 1f;
+    [SerializeField] float snowballBuildCost = 0.1f;
     [SerializeField] float snowballMassToScaleMultiplier = 3f;
     [SerializeField] Vector3 snowballInitialScale = new Vector3(0.2f, 0.2f, 0.2f);
     [SerializeField] float snowballDeadlyVelocity = 0f;
@@ -42,16 +42,7 @@ public class SnowBlockBuilder : MonoBehaviour
         { 
             if (items.pickedSnowAmount >= snowballStartCost)
             {
-                if (!buildingSnowball)
-                {
-                    buildingTime = 0f;
-                    buildingSnowball = true;
-                    items.pickedSnowAmount -= snowballStartCost;
-                    totalSphereCost += snowballStartCost;
-                }
-
                 buildingTime += Time.deltaTime;
-
 
                 // Create the sphere at the player's position if it doesn't already exist
                 if (sphere == null)
@@ -59,8 +50,12 @@ public class SnowBlockBuilder : MonoBehaviour
                     Vector3 playerPos = transform.position;
                     sphere = Instantiate(spherePrefab, playerPos, Quaternion.identity);
                     sphereRigidBody = sphere.GetComponent<Rigidbody2D>();
-                    sphereRigidBody.mass = 1f;
+                    sphereRigidBody.mass = snowballInitialMass;
                     sphere.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+                    buildingTime = 0f;
+
+                    items.pickedSnowAmount -= snowballStartCost;
+                    totalSphereCost += snowballStartCost;
                 }
 
                 if (buildingTime >= snowballBuildingDelay && sphereRigidBody.mass <= snowballMaxMass)
@@ -85,7 +80,6 @@ public class SnowBlockBuilder : MonoBehaviour
         }
         else
         {
-            buildingSnowball = false;
             if (sphere != null)
             {
                 mousePos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10f));
@@ -93,9 +87,9 @@ public class SnowBlockBuilder : MonoBehaviour
 
                 //Debug.Log("Shoot at " + rotation);
 
-                if(sphereRigidBody.mass < 10f)
+                if(sphereRigidBody.mass < 2f)
                     sphereRigidBody.AddForce(rotation * shootForce, ForceMode2D.Impulse);
-                //GetComponent<PlayerMovement>().BlockMove(false);
+                GetComponent<PlayerMovement>().BlockMove(false);
                 // Leave the sphere if the right mouse button is not being held down
                 sphere = null;
                 sphereRigidBody = null;
