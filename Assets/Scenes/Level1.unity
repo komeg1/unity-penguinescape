@@ -20084,7 +20084,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1538167541717929972, guid: 9d1c4907a777adc42896dcbbfa4f46ed, type: 3}
       propertyPath: m_text
-      value: Press and E to collect snow
+      value: Press and hold E to collect snow
       objectReference: {fileID: 0}
     - target: {fileID: 1538167541717929972, guid: 9d1c4907a777adc42896dcbbfa4f46ed, type: 3}
       propertyPath: m_fontSize
