@@ -4,6 +4,7 @@ public class PickUpScript : MonoBehaviour
 {
 
     [SerializeField] LightTwinkleScript lightEffect;
+    private bool isPickable = true;
     public void PickedUp()
     {
         GetComponent<Animator>().SetBool("PickedUp", true);
@@ -14,5 +15,13 @@ public class PickUpScript : MonoBehaviour
     public void disappear()
     {
         this.gameObject.SetActive(false);
+    }
+    public void DisablePickUp()
+    {
+        isPickable= false;
+    }
+    public bool IsPickable()
+    {
+        return isPickable;
     }
 }

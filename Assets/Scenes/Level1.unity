@@ -18372,8 +18372,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5db510efd727a0b4b9c8634b68b09b91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snowParticles: {fileID: 1863848842}
-  player: {fileID: 1984324647}
 --- !u!4 &1886523264 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1278905954147068996, guid: 174bb7c672ffe5546b7d0c5748e69765, type: 3}
@@ -18922,6 +18920,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spherePrefab: {fileID: 5688395706455210593, guid: d9f424ad760c3c24491c623da1fc2956, type: 3}
+  snowballStartCost: 5
+  snowballBuildingDelay: 0.3
+  snowballMaxMass: 50
+  snowballMassIncrease: 10
+  snowballBuildCost: 1
+  snowballMassToScaleMultiplier: 3
+  snowballInitialScale: {x: 0.2, y: 0.2, z: 0.2}
 --- !u!82 &1984324658
 AudioSource:
   m_ObjectHideFlags: 0
@@ -20250,6 +20255,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1538167541717929972, guid: 9d1c4907a777adc42896dcbbfa4f46ed, type: 3}
+      propertyPath: m_text
+      value: Press and E to collect snow
+      objectReference: {fileID: 0}
     - target: {fileID: 1538167541717929972, guid: 9d1c4907a777adc42896dcbbfa4f46ed, type: 3}
       propertyPath: m_fontSize
       value: 22

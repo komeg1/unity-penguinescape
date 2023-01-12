@@ -18,23 +18,32 @@ public class PlayerPickups : MonoBehaviour
     {
         if (other.CompareTag("Coin"))
         {
-            other.GetComponent<PickUpScript>().PickedUp();
-            GameManager.instance.AddPoints(GameManager.instance.cherryScore);
-            audioSource.PlayOneShot(bonusSound, AudioListener.volume);
+            if(other.GetComponent<PickUpScript>().IsPickable())
+            {
+                other.GetComponent<PickUpScript>().PickedUp();
+                GameManager.instance.AddPoints(GameManager.instance.cherryScore);
+                audioSource.PlayOneShot(bonusSound, AudioListener.volume);
+            }
         }
         else if (other.CompareTag("Key"))
         {
-            other.GetComponent<PickUpScript>().PickedUp();
-            GameManager.instance.AddKey();
-            audioSource.PlayOneShot(keySound, AudioListener.volume);
+            if (other.GetComponent<PickUpScript>().IsPickable())
+            {
+                other.GetComponent<PickUpScript>().PickedUp();
+                GameManager.instance.AddKey();
+                audioSource.PlayOneShot(keySound, AudioListener.volume);
+            }
         }
         else if (other.CompareTag("Life"))
         {
             if (playerLifeScript.MaxHealth())
                 return;
-            playerLifeScript.IncreaseHealth();
-            other.GetComponent<PickUpScript>().PickedUp();
-            audioSource.PlayOneShot(heartSound, AudioListener.volume);
+            if (other.GetComponent<PickUpScript>().IsPickable())
+            {
+                playerLifeScript.IncreaseHealth();
+                other.GetComponent<PickUpScript>().PickedUp();
+                audioSource.PlayOneShot(heartSound, AudioListener.volume);
+            }
         }
         else if (other.CompareTag("IceAxes"))
         {
