@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class SnowCollector : MonoBehaviour
 {
-    [SerializeField] ParticleSystem snowParticles;
-    [SerializeField] private Transform player;
+   ParticleSystem snowParticles;
+     private Transform player;
 
 
     List<ParticleSystem.Particle> particlesList = new();
@@ -12,14 +12,21 @@ public class SnowCollector : MonoBehaviour
     private void Start()
     {
         snowParticles = GetComponent<ParticleSystem>();
-
+       
         //GetChild(1) = SnowForceField
         player.GetChild(1).gameObject.SetActive(false);
     }
-
+    private void Awake()
+    {
+        
+        player = GameObject.Find("Player").transform;
+        Debug.Log(player);
+    }
     private void OnParticleTrigger()
     {
+     
         int triggeredParticles = snowParticles.GetTriggerParticles(ParticleSystemTriggerEventType.Enter, particlesList);
+        
         if (Input.GetKey(KeyCode.E) && player.GetComponent<PlayerItems>().pickedSnowAmount < 100)
         {
             player.GetChild(1).gameObject.SetActive(true);
