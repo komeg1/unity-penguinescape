@@ -100,7 +100,7 @@ Animator:
   m_GameObject: {fileID: 5137761270142805944}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1db626ab6c11fc44ca6c9b76493f93f1, type: 2}
+  m_Controller: {fileID: 9100000, guid: a3bf6fd8d1591f944af233bec812ff50, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -178,8 +178,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2493a407393a6d243856dd5d70b27b48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animatorDeathBoolName: 
-  delay: 0
+  animatorDeathBoolName: Dead
+  delay: 0.5
   deathSound: {fileID: 8300000, guid: 2c5292ba5cf254919a6b9e2b18e04f49, type: 3}
 --- !u!82 &1458647639624260721
 AudioSource:
