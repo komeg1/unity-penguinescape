@@ -49,6 +49,7 @@ public class Bullet : MonoBehaviour
 
     void DestroyObj()
     {
+
         Destroy(gameObject);
     }
 }

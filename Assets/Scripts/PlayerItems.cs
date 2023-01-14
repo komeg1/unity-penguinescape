@@ -4,13 +4,13 @@ using UnityEngine.UI;
 public class PlayerItems : MonoBehaviour
 {
     public bool hasAxes = false;
-    [SerializeField] public float snowParticleValue = 0.1f;
-    [SerializeField] private float startingSnow = 10f;
+    [SerializeField] public float snowParticleValue = 0.01f;
+    [SerializeField] private float startingSnow = 5f;
     [SerializeField] public SnowBar snowBar;
 
     //snieg
     public float pickedSnowAmount = 0.0f;
-    public float maxSnowAmount = 100f;
+    public float maxSnowAmount = 10f;
 
     private void Start()
     {
@@ -21,7 +21,7 @@ public class PlayerItems : MonoBehaviour
     public void UpdateSnowAmount()
     {
 
-        if (pickedSnowAmount < 100.0f)
+        if (pickedSnowAmount < maxSnowAmount)
             pickedSnowAmount += snowParticleValue;
             snowBar.SetSnow(pickedSnowAmount);
     }

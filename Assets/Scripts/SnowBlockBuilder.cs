@@ -25,7 +25,7 @@ public class SnowBlockBuilder : MonoBehaviour
     [SerializeField] float snowballInitialMass = 1f;
     [SerializeField] float snowballMaxMass = 50f;
     [SerializeField] float snowballMassIncrease = 10f;
-    [SerializeField] float snowballBuildCost = 0.1f;
+    [SerializeField] float snowballBuildCost = 0.5f;
     [SerializeField] float snowballMassToScaleMultiplier = 3f;
     [SerializeField] Vector3 snowballInitialScale = new Vector3(0.2f, 0.2f, 0.2f);
     [SerializeField] float snowballDeadlyVelocity = 0f;
@@ -65,7 +65,7 @@ public class SnowBlockBuilder : MonoBehaviour
                     sphere.layer = LayerMask.NameToLayer("Water");
 
                     items.pickedSnowAmount -= snowballStartCost;
-                    totalSphereCost += snowballStartCost;
+                    totalSphereCost = snowballStartCost;
                 }
 
                 if (buildingTime >= snowballBuildingDelay && sphereRigidBody.mass <= snowballMaxMass)
