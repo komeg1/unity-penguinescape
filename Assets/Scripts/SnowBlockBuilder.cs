@@ -34,6 +34,9 @@ public class SnowBlockBuilder : MonoBehaviour
     bool hasBeenDestroyed = false;
     float totalSphereCost = 0f;
 
+    [SerializeField] ParticleSystem snowBurst;
+    bool bursted = false;
+
     private void Start()
     {
         items = GetComponent<PlayerItems>();
@@ -67,6 +70,8 @@ public class SnowBlockBuilder : MonoBehaviour
 
                 if (buildingTime >= snowballBuildingDelay && sphereRigidBody.mass <= snowballMaxMass)
                 {
+                    GetComponent<PlayerMovement>().BlockMove(true);
+
                     items.pickedSnowAmount -= snowballBuildCost * Time.deltaTime;
                     totalSphereCost += snowballBuildCost * Time.deltaTime;
 
@@ -92,23 +97,27 @@ public class SnowBlockBuilder : MonoBehaviour
         {
             if (sphere != null)
             {
+                SnowballScript snowballScript = sphere.GetComponent<SnowballScript>();
+                snowballScript.snowBurst = destroyParticleSystem;
+                snowballScript.burstParticlesAmount = (int)(totalSphereCost / items.snowParticleValue);
+
                 sphere.layer = LayerMask.NameToLayer("Ground");
                 sphereRigidBody.simulated = true;
                 sphereCollider.enabled = true;
                 mousePos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10f));
                 rotation = (mousePos - transform.position).normalized;
 
-                //Debug.Log("Shoot at " + rotation);
 
-                if(sphereRigidBody.mass < 2f)
+
+                if(sphereRigidBody.mass <= 2f)
                     sphereRigidBody.AddForce(rotation * shootForce, ForceMode2D.Impulse);
                 GetComponent<PlayerMovement>().BlockMove(false);
-                // Leave the sphere if the right mouse button is not being held down
+
+
                 sphere = null;
                 sphereRigidBody = null;
             }
         }
     }
-
 }
 

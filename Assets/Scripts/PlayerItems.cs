@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class PlayerItems : MonoBehaviour
 {
     public bool hasAxes = false;
-    [SerializeField] public float snowParticleValue = 0.5f;
+    [SerializeField] public float snowParticleValue = 0.1f;
     [SerializeField] private float startingSnow = 10f;
     [SerializeField] public SnowBar snowBar;
 
