@@ -35,20 +35,15 @@ public class SnowballScript : MonoBehaviour
         StartCoroutine(delayedDestroy());
     }
 
-    private float collisionSpeed(Collision2D collision)
-    {
-        Vector3 collisionNormal = (collision.transform.position - transform.position).normalized;
-        return Vector3.Dot(collisionNormal, sphereRigidBody.velocity);
-    }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("KillableDamageSource"))
         {
             collision.gameObject.GetComponent<SpriteDeathScript>().Death();
             GameManager.instance.IncreaseKilledEnemies();
-
         }
+        if (sphereRigidBody.mass <= 1.5f)
+            burst();
     }
     IEnumerator delayedDestroy()
     {

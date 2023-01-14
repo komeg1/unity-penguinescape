@@ -7,17 +7,19 @@ public class Weapon : MonoBehaviour
     [SerializeField] private GameObject bulletPrefab;
 
     private PlayerItems items;
+    private SnowBlockBuilder blockBuilder;
 
     private void Start()
     {
         items = GetComponent<PlayerItems>();
+        blockBuilder = GetComponent<SnowBlockBuilder>();
     }
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(1))
         {
-            if (items.pickedSnowAmount >= 1)
+            if (items.pickedSnowAmount >= blockBuilder.snowballStartCost)
                 Shoot();
 
         }
@@ -26,6 +28,6 @@ public class Weapon : MonoBehaviour
     void Shoot()
     {
         Instantiate(bulletPrefab, hand.position, Quaternion.identity);
-        items.pickedSnowAmount -= 0.5f;
+        items.addSnow(-blockBuilder.snowballStartCost);
     }
 }

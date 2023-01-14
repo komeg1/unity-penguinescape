@@ -979,7 +979,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 50
+        scalar: 10
         minScalar: 30
         maxCurve:
           serializedVersion: 2
@@ -4886,8 +4886,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5db510efd727a0b4b9c8634b68b09b91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snowParticles: {fileID: 376498840593203063}
-  player: {fileID: 0}
 --- !u!1 &6749630022081727949
 GameObject:
   m_ObjectHideFlags: 0

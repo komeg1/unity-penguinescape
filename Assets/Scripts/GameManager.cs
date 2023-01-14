@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+//using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour
 {
@@ -27,6 +28,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMP_Text qualityText;
     [SerializeField] private TMP_Text winScoreText;
     [SerializeField] private TMP_Text winHighScoreText;
+
+    [SerializeField] private GameObject water;
+    [SerializeField] private GameObject player;
+
+    [SerializeField] private float waterRiseDelay = 5f;
+    [SerializeField] private float waterRiseSpeed = 0f;
+    [SerializeField] private float waterMaxRiseSpeed = 1f;
+    [SerializeField] private float waterRiseAcceleration = 0.01f;
 
     private List<Image> keysList = new();
 
@@ -69,6 +78,15 @@ public class GameManager : MonoBehaviour
         if(pauseTime == false )
             time += Time.deltaTime;
         timeText.SetText(string.Format("{0:00}:{1:00}", (int)time / 60, (int)time % 60));
+
+        if(time > waterRiseDelay)
+        {
+            water.transform.position += new Vector3(0, waterRiseSpeed * Time.deltaTime);
+            if(waterRiseSpeed < waterMaxRiseSpeed)
+            {
+                waterRiseSpeed += waterRiseAcceleration * Time.deltaTime;
+            }
+        }
     }
     public void Continue()
     {

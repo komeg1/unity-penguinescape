@@ -16,6 +16,7 @@ TagManager:
   - IceAxes
   - InstaDeath
   - Snowball
+  - Ground
   layers:
   - Default
   - TransparentFX
@@ -68,9 +69,9 @@ TagManager:
   - name: Terrain
     uniqueID: 710931969
     locked: 0
-  - name: Water
-    uniqueID: 442557789
-    locked: 0
   - name: TerrainDecorations
     uniqueID: 3180436885
+    locked: 0
+  - name: Water
+    uniqueID: 442557789
     locked: 0

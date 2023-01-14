@@ -12,19 +12,22 @@ public class WeightedButton : MonoBehaviour
         gateOpener = GetComponent<GateOpenerScript>();
         animator = GetComponent<Animator>();
     }
-    void Update()
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(Physics2D.Raycast(transform.position, Vector2.up, 1f))
+        if(collision.CompareTag("Player") || collision.CompareTag("Snowball"))
         {
             gateOpener.Open();
             animator.SetBool("Pressed", true);
         }
-        else
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player") || collision.CompareTag("Snowball"))
         {
             gateOpener.Close();
             animator.SetBool("Pressed", false);
         }
     }
-
 
 }

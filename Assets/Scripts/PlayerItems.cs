@@ -25,5 +25,11 @@ public class PlayerItems : MonoBehaviour
             pickedSnowAmount += snowParticleValue;
             snowBar.SetSnow(pickedSnowAmount);
     }
+    public void addSnow(float amount)
+    {
+        pickedSnowAmount += amount;
+        snowBar.SetSnow(pickedSnowAmount);
+    }
+    
 
 }

@@ -19,7 +19,7 @@ public class SnowBlockBuilder : MonoBehaviour
     Vector3 mousePos;
     Vector3 rotation;
 
-    [SerializeField] float snowballStartCost = 1f;
+    [SerializeField] public float snowballStartCost = 1f;
     [SerializeField] float snowballBuildingDelay = 0.3f;
     float buildingTime = 0f;
     [SerializeField] float snowballInitialMass = 1f;
@@ -43,7 +43,7 @@ public class SnowBlockBuilder : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButton(0))
         { 
             if (items.pickedSnowAmount >= snowballStartCost)
             {
