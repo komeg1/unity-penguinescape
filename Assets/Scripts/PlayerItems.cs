@@ -52,15 +52,23 @@ public class PlayerItems : MonoBehaviour
         Debug.Log(value + " out of " + max);
         return Mathf.Sin(value / max * Mathf.PI/2) * maxvalue;
     }
-    public void UpdateAir()
+    public async void UpdateAir()
     {
         drowningEffect.color = new Color(1f, 1f, 1f,Sin0x(maxAirAmount-air, maxAirAmount, 1f));
         if (player.inWater)
-        {         
+        {
             if (air > 0f)
+            {
                 air -= Time.deltaTime;
+                if (air <= 1f)
+                    drowningEffect.transform.GetChild(0).GetComponent<ParticleSystem>().enableEmission = false;
+                else
+                    drowningEffect.transform.GetChild(0).GetComponent<ParticleSystem>().enableEmission = true;
+            }
             else
-                playerLife.Hurt();    
+            {
+                playerLife.Hurt();
+            }
             
         }
         else
