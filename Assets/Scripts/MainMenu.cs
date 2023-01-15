@@ -12,6 +12,7 @@ public class MainMenu : MonoBehaviour
 
     void Start()
     {
+        Time.timeScale = 1f;
         exampleOverrider.SetAnimations(skinNumber);
 
     }
