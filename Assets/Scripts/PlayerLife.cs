@@ -15,7 +15,7 @@ public class PlayerLife : MonoBehaviour
     [SerializeField] AudioClip deathSound;
     [SerializeField] AudioClip damageSound;
 
-
+    [SerializeField] float soundMultiplier = 1.5f;
     [SerializeField] float immunityTime = 1f;
     [SerializeField] int immunityEffectFlashes = 4;
     float timeSinceLastHurt;
@@ -59,7 +59,7 @@ public class PlayerLife : MonoBehaviour
         {
             timeSinceLastHurt = 0;
             DecreaseHealth();
-            audioSource.PlayOneShot(damageSound, AudioListener.volume);
+            audioSource.PlayOneShot(damageSound, AudioListener.volume*soundMultiplier);
         }
 
         if (health <= 0)
@@ -74,7 +74,7 @@ public class PlayerLife : MonoBehaviour
     IEnumerator DeathCoroutine()
     {
         movementScript.canMove = false;
-        audioSource.PlayOneShot(deathSound, AudioListener.volume);
+        audioSource.PlayOneShot(deathSound, AudioListener.volume*soundMultiplier);
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         rb.velocity = new Vector2(0, 0);
         rb.isKinematic = true;

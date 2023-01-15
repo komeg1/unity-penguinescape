@@ -8,6 +8,7 @@ public class PlayerPickups : MonoBehaviour
     [SerializeField] AudioClip victorySound;
     [SerializeField] AudioClip keySound;
     [SerializeField] AudioClip heartSound;
+    [SerializeField] float soundMultiplier = 1.5f;
     private void Start()
     {
         playerLifeScript = GetComponent<PlayerLife>();
@@ -22,7 +23,7 @@ public class PlayerPickups : MonoBehaviour
             {
                 other.GetComponent<PickUpScript>().PickedUp();
                 GameManager.instance.AddPoints(GameManager.instance.cherryScore);
-                audioSource.PlayOneShot(bonusSound, AudioListener.volume);
+                audioSource.PlayOneShot(bonusSound, AudioListener.volume* soundMultiplier);
             }
         }
         else if (other.CompareTag("Key"))
@@ -31,7 +32,7 @@ public class PlayerPickups : MonoBehaviour
             {
                 other.GetComponent<PickUpScript>().PickedUp();
                 GameManager.instance.AddKey();
-                audioSource.PlayOneShot(keySound, AudioListener.volume);
+                audioSource.PlayOneShot(keySound, AudioListener.volume * soundMultiplier);
             }
         }
         else if (other.CompareTag("Life"))
@@ -42,7 +43,7 @@ public class PlayerPickups : MonoBehaviour
             {
                 playerLifeScript.IncreaseHealth();
                 other.GetComponent<PickUpScript>().PickedUp();
-                audioSource.PlayOneShot(heartSound, AudioListener.volume);
+                audioSource.PlayOneShot(heartSound, AudioListener.volume * soundMultiplier);
             }
         }
         else if (other.CompareTag("IceAxes"))
@@ -57,7 +58,7 @@ public class PlayerPickups : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E) && GameManager.instance.enoughKeys())
             {
-                audioSource.PlayOneShot(victorySound, AudioListener.volume);
+                audioSource.PlayOneShot(victorySound, AudioListener.volume * soundMultiplier);
                 GameManager.instance.AddPoints(playerLifeScript.health * 100);
                 GameManager.instance.Win();
             }

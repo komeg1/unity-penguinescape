@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float waterGravityScale;
     private AudioSource audioSource;
     [SerializeField] AudioClip movementsSound;
-
+    [SerializeField] float soundMultiplier = 1.5f;
     private Rigidbody2D rigidBody;
     private SpriteRenderer spriteRenderer;
     private CapsuleCollider2D collider;
@@ -92,7 +92,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             if(audioSource.isPlaying == false && horizontal!=0 && rigidBody.velocity.y ==0)
-                 audioSource.PlayOneShot(movementsSound, AudioListener.volume);
+                 audioSource.PlayOneShot(movementsSound, AudioListener.volume * soundMultiplier);
               
             rigidBody.velocity = new Vector2(horizontal * moveSpeed, rigidBody.velocity.y);
             if (isClimbing)

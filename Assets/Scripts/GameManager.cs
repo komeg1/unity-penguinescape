@@ -79,7 +79,7 @@ public class GameManager : MonoBehaviour
         instance = this;
         SetSkin();
         SetQualityText();
-        SetVolume(0.35f);
+        SetVolume(0.75f);
         player.GetComponent<SnowBlockBuilder>().enabled= false;
         Time.timeScale = 1;
     }
