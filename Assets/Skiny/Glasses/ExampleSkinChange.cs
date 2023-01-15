@@ -2,16 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ExampleSkinChange : MonoBehaviour
 {
     int chosenSkin = 0;
-    [SerializeField]AnimatorOverrideController[] overrideControllersArray;
+    [SerializeField] AnimatorOverrideController[] overrideControllersArray;
     [SerializeField] private ChangeSkin overrider;
+    private Image tickImage;
     void Start()
     {
-        
+        tickImage = GameObject.Find("Tick").GetComponent<Image>() ;
     }
+
 
     public void OnRightArrowClick()
     {
@@ -30,6 +33,7 @@ public class ExampleSkinChange : MonoBehaviour
     public void OnSelectButtonClick()
     {
         MainMenu.skinNumber = chosenSkin;
+        updateTick();
     }
     public void OnMainMenuButtonClick()
     {
@@ -38,9 +42,18 @@ public class ExampleSkinChange : MonoBehaviour
     // Update is called once per frame
     public void SetExampleSkin()
     {
-        
+
+        updateTick();
         overrider.SetAnimations(chosenSkin);
 
+    }
+
+    public void updateTick()
+    {
+        if (MainMenu.skinNumber == chosenSkin)
+            tickImage.enabled = true;
+        else
+            tickImage.enabled = false;
     }
 
    
