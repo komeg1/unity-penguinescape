@@ -13,6 +13,8 @@ public class ExampleSkinChange : MonoBehaviour
     void Start()
     {
         tickImage = GameObject.Find("Tick").GetComponent<Image>() ;
+        chosenSkin = MainMenu.skinNumber;
+        SetExampleSkin();
     }
 
 
