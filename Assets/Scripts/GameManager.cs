@@ -10,7 +10,8 @@ public class GameManager : MonoBehaviour
 
     public enum GameState { Pause, Game, Win, Lose, Options };
     public int cherryScore = 10;
-    public int maxKeys = 3;
+    [SerializeField] public int maxKeys = 3;
+    [SerializeField] public int keysToWin = 3;
     private float time = 0f;
     public GameState state = GameState.Pause;
 
@@ -43,6 +44,14 @@ public class GameManager : MonoBehaviour
     
     [SerializeField] private ChangeSkin overrider;
 
+    [SerializeField] private Transform[] cutscenePoints;
+    [SerializeField] private float cutsceneWaitTime = 1f;
+    private float cutsceneWaitTimer = 0f;
+    [SerializeField] private float cutsceneMoveSpeed = 0.1f;
+    private int currentPoint = 0;
+    [SerializeField] private bool cutscene = true;
+    private Camera mainCamera;
+
     private List<Image> keysList = new();
 
     public int score = 0;
@@ -64,17 +73,49 @@ public class GameManager : MonoBehaviour
         optionsCanvas.enabled = false;
         winCanvas.enabled = false;
         loseCanvas.enabled = false;
-
+        mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
+        mainCamera.GetComponent<Follower>().enabled = false;
+        player.GetComponent<PlayerMovement>().canMove = false;
         instance = this;
         SetSkin();
         SetQualityText();
         SetVolume(0.35f);
-        Continue();
-
+        player.GetComponent<SnowBlockBuilder>().enabled= false;
     }
-
+    void Cutscene()
+    {
+        //Debug.Log("Cutscene, timer: " + cutsceneWaitTimer + " distance: " + Vector2.Distance(mainCamera.transform.position, cutscenePoints[currentPoint].transform.position));
+        cutsceneWaitTimer += Time.deltaTime;
+        if (cutsceneWaitTimer >= cutsceneWaitTime)
+        {
+            if (currentPoint == cutscenePoints.Length)
+            {
+                cutscene = false;
+                mainCamera.GetComponent<Follower>().enabled = true;
+                player.GetComponent<PlayerMovement>().canMove = true;
+                player.GetComponent<SnowBlockBuilder>().enabled = true;
+                Continue();
+                return;
+            }
+            float z = mainCamera.transform.position.z;
+            mainCamera.transform.position = Vector2.MoveTowards(mainCamera.transform.position, cutscenePoints[currentPoint].transform.position, cutsceneMoveSpeed * Time.deltaTime);
+            mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, mainCamera.transform.position.y, z);
+            if (Vector2.Distance(mainCamera.transform.position, cutscenePoints[currentPoint].transform.position) < 0.1f)
+            {             
+                currentPoint += 1;
+                cutsceneWaitTimer = 0;
+            }
+        }
+    }
     private void Update()
     {
+
+        if(cutscene)
+        {
+            Cutscene();
+            return;
+        }
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (state == GameState.Game)
@@ -128,19 +169,9 @@ public class GameManager : MonoBehaviour
         state = GameState.Win;
         Time.timeScale = 0;
         MainMenu.coinsAmount += score;
-        Scene currentScene = SceneManager.GetActiveScene();
-        if(currentScene.name == "Level1")
-        {
-            int highScore = PlayerPrefs.GetInt("HighScore");
-            if (highScore < score)
-            {
-                PlayerPrefs.SetInt("HighScore", score);
-                highScore = score;
-            }
+        WinScreenManager.score = score;
+        SceneManager.LoadScene("WinScreen");
 
-            winScoreText.text = "Score: " + score;
-            winHighScoreText.text = "Best Score: " + highScore;
-        }
     }
     public void Options()
     {
@@ -170,7 +201,7 @@ public class GameManager : MonoBehaviour
 
     public bool enoughKeys()
     {
-        return keys >= maxKeys;
+        return keys >= keysToWin;
     }
 
     void ReloadScene()

@@ -49,7 +49,7 @@ public class PlayerItems : MonoBehaviour
     }
     float Sin0x(float value, float max, float maxvalue)
     {
-        Debug.Log(value + " out of " + max);
+        //Debug.Log(value + " out of " + max);
         return Mathf.Sin(value / max * Mathf.PI/2) * maxvalue;
     }
     public async void UpdateAir()

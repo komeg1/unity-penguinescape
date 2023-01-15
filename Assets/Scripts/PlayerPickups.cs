@@ -50,9 +50,12 @@ public class PlayerPickups : MonoBehaviour
             GetComponent<PlayerItems>().hasAxes = true;
             other.GetComponent<PickUpScript>().disappear();
         }
-        else if (other.CompareTag("Finish Line"))
+    }
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.CompareTag("Finish Line"))
         {
-            if (GameManager.instance.enoughKeys())
+            if (Input.GetKeyDown(KeyCode.E) && GameManager.instance.enoughKeys())
             {
                 audioSource.PlayOneShot(victorySound, AudioListener.volume);
                 GameManager.instance.AddPoints(playerLifeScript.health * 100);

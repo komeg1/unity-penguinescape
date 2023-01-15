@@ -35,6 +35,8 @@ public class SnowBlockBuilder : MonoBehaviour
     [SerializeField] ParticleSystem snowBurst;
     bool bursted = false;
 
+    public bool canShoot = true;
+
     private void Start()
     {
         items = GetComponent<PlayerItems>();
