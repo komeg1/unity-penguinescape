@@ -88,7 +88,8 @@ public class PlayerLife : MonoBehaviour
     {
         if (collision.CompareTag("DamageSource"))
         {
-            Hurt();
+            if(health>0)
+                Hurt();
         }
         else if (collision.CompareTag("KillableDamageSource"))
         {
@@ -112,7 +113,8 @@ public class PlayerLife : MonoBehaviour
     {
         if (collision.collider.CompareTag("DamageSource"))
         {
-            Hurt();
+            if (health > 0)
+                Hurt();
         }
         else if (collision.collider.CompareTag("KillableDamageSource"))
         {
@@ -170,5 +172,9 @@ public class PlayerLife : MonoBehaviour
     public bool MaxHealth()
     {
         return health == maxHealth;
+    }
+    public int GetHealth()
+    {
+        return health;
     }
 }

@@ -67,7 +67,8 @@ public class PlayerItems : MonoBehaviour
             }
             else
             {
-                playerLife.Hurt();
+                if(playerLife.GetHealth() > 0)
+                    playerLife.Hurt();
             }
             
         }
