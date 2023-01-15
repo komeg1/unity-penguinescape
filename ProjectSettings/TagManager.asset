@@ -17,6 +17,7 @@ TagManager:
   - InstaDeath
   - Snowball
   - Ground
+  - GameMusic
   layers:
   - Default
   - TransparentFX
@@ -74,4 +75,7 @@ TagManager:
     locked: 0
   - name: Water
     uniqueID: 442557789
+    locked: 0
+  - name: Effects
+    uniqueID: 2393381399
     locked: 0
