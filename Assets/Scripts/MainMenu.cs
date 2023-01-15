@@ -6,11 +6,14 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     // Start is called before the first frame update
-
+    public static int skinNumber = 0;
+    [SerializeField] ChangeSkin exampleOverrider;
+    
 
     void Start()
     {
-        
+        exampleOverrider.SetAnimations(skinNumber);
+
     }
 
     // Update is called once per frame
@@ -21,6 +24,11 @@ public class MainMenu : MonoBehaviour
     public void OnLevel1ButtonPressed()
     {
         SceneManager.LoadSceneAsync("Level1");
+    }
+
+    public void OnCustomizationButtonPressed()
+    {
+        SceneManager.LoadSceneAsync("Customization");
     }
     public void OnExitToDesktopButtonPressed()
     {

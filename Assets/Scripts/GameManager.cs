@@ -37,6 +37,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float waterMaxRiseSpeed = 1f;
     [SerializeField] private float waterRiseAcceleration = 0.01f;
 
+
+    
+    [SerializeField] private ChangeSkin overrider;
+
     private List<Image> keysList = new();
 
     private int score = 0;
@@ -60,10 +64,11 @@ public class GameManager : MonoBehaviour
         loseCanvas.enabled = false;
 
         instance = this;
-
+        SetSkin();
         SetQualityText();
         SetVolume(0.35f);
         Continue();
+
     }
 
     private void Update()
@@ -234,5 +239,12 @@ public class GameManager : MonoBehaviour
     public void SetVolume( float volume )
     {
         AudioListener.volume = volume;
+    }
+
+    public void SetSkin()
+    {
+      
+        overrider.SetAnimations(MainMenu.skinNumber);
+
     }
 }

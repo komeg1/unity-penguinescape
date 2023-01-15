@@ -35,6 +35,9 @@ public class PlayerMovement : MonoBehaviour
     private bool inWater = false;
 
     public bool canMove = true;
+    AudioSource audioSrc;
+
+   
 
 
 
@@ -46,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         gravityScale = rigidBody.gravityScale;
         maxWaterMoveSpeed = moveSpeed * waterSpeedMultiplier;
+       audioSrc = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -63,10 +67,13 @@ public class PlayerMovement : MonoBehaviour
 
         animator.SetBool("isGrounded", IsGrounded());
         animator.SetBool("isWalking", isWalking);
+
+        
     }
 
     void Move()
     {
+      
         if (horizontal != 0f)
         {
             //Zamienilem metode flip, na rotowanie obiektu o 180st w Y, zeby moc dodac obiekt na rece, z ktorej wylatuja pociski,
@@ -77,9 +84,18 @@ public class PlayerMovement : MonoBehaviour
                 Flip();
         }
         if (inWater)
+        {
+            audioSrc.Stop();
             rigidBody.velocity = new Vector2(horizontal * maxWaterMoveSpeed, rigidBody.velocity.y);
+           
+        }
         else
         {
+            if(audioSrc.isPlaying == false && horizontal!=0 && rigidBody.velocity.y ==0)
+                 audioSrc.Play();
+            if (horizontal == 0 || rigidBody.velocity.y !=0)
+                audioSrc.Stop();
+              
             rigidBody.velocity = new Vector2(horizontal * moveSpeed, rigidBody.velocity.y);
             if (isClimbing)
             {
@@ -93,7 +109,6 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("isClimbing", isClimbing);
 
         }
-
 
 
         isWalking = (horizontal != 0);

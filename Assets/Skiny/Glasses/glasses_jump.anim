@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PengIdle
+  m_Name: glasses_jump
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -20,9 +20,9 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 708495428, guid: a1b14a9be127e4b498d3f88cace841a8, type: 3}
+      value: {fileID: 758376744, guid: 13c95a78c41b5514b8c419448987b990, type: 3}
     - time: 0.083333336
-      value: {fileID: 775227151, guid: a1b14a9be127e4b498d3f88cace841a8, type: 3}
+      value: {fileID: 21300000, guid: c67ca6dc261a4744ab40c05cf3900fcf, type: 2}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -43,8 +43,8 @@ AnimationClip:
       isPPtrCurve: 1
       isIntCurve: 0
     pptrCurveMapping:
-    - {fileID: 708495428, guid: a1b14a9be127e4b498d3f88cace841a8, type: 3}
-    - {fileID: 775227151, guid: a1b14a9be127e4b498d3f88cace841a8, type: 3}
+    - {fileID: 758376744, guid: 13c95a78c41b5514b8c419448987b990, type: 3}
+    - {fileID: 21300000, guid: c67ca6dc261a4744ab40c05cf3900fcf, type: 2}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
