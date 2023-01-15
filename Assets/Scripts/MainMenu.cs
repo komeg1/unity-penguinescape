@@ -10,7 +10,7 @@ public class MainMenu : MonoBehaviour
     public static int skinNumber = 0;
     [SerializeField] ChangeSkin exampleOverrider;
   
-    public static int coinsAmount;
+    public static int coinsAmount=900;
     
 
     void Start()
