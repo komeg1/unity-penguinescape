@@ -27,9 +27,7 @@ public class WinScreenManager : MonoBehaviour
     }
     void ReloadScene()
     {
-        SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName("Level1").buildIndex);
-        Resources.UnloadUnusedAssets();
-        SceneManager.LoadScene(SceneManager.GetSceneByName("Level1").buildIndex, LoadSceneMode.Single);
+        SceneManager.LoadSceneAsync("Level1");
     }
 
     public void OnRestartButtonPressed()
