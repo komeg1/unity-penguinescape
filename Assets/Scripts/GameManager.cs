@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     private float time = 0f;
     public GameState state = GameState.Pause;
 
+    
+
     [SerializeField] private Canvas inGameCanvas;
     [SerializeField] private Texture2D keyIcon;
     [SerializeField] private int keyIconPixelsPerUnit;
@@ -43,7 +45,7 @@ public class GameManager : MonoBehaviour
 
     private List<Image> keysList = new();
 
-    private int score = 0;
+    public int score = 0;
     private int keys = 0;
     private int killedEnemies = 0;
 
@@ -125,7 +127,7 @@ public class GameManager : MonoBehaviour
         winCanvas.enabled = true;
         state = GameState.Win;
         Time.timeScale = 0;
-
+        MainMenu.coinsAmount += score;
         Scene currentScene = SceneManager.GetActiveScene();
         if(currentScene.name == "Level1")
         {

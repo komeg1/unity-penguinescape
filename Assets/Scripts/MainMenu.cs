@@ -1,3 +1,4 @@
+using Microsoft.Win32.SafeHandles;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,13 +9,15 @@ public class MainMenu : MonoBehaviour
     // Start is called before the first frame update
     public static int skinNumber = 0;
     [SerializeField] ChangeSkin exampleOverrider;
+  
+    public static int coinsAmount;
     
 
     void Start()
     {
         Time.timeScale = 1f;
         exampleOverrider.SetAnimations(skinNumber);
-
+        Debug.Log("Coins: " + coinsAmount);
     }
 
     // Update is called once per frame
