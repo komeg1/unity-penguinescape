@@ -81,11 +81,12 @@ public class GameManager : MonoBehaviour
         SetQualityText();
         SetVolume(0.35f);
         player.GetComponent<SnowBlockBuilder>().enabled= false;
+        Time.timeScale = 1;
     }
     void Cutscene()
     {
-        //Debug.Log("Cutscene, timer: " + cutsceneWaitTimer + " distance: " + Vector2.Distance(mainCamera.transform.position, cutscenePoints[currentPoint].transform.position));
         cutsceneWaitTimer += Time.deltaTime;
+        Debug.Log("Cutscene, timer: " + cutsceneWaitTimer);
         if (cutsceneWaitTimer >= cutsceneWaitTime)
         {
             if (currentPoint == cutscenePoints.Length)
@@ -175,7 +176,7 @@ public class GameManager : MonoBehaviour
     }
     public void Options()
     {
-        inGameCanvas.enabled = false;
+        pauseCanvas.enabled = false;
         optionsCanvas.enabled = true;
         state = GameState.Options;
         Time.timeScale = 0;

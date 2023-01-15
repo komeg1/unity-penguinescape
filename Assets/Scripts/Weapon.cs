@@ -5,6 +5,7 @@ public class Weapon : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField] private Transform hand;
     [SerializeField] private GameObject bulletPrefab;
+    [SerializeReference] public GameManager gameManager;
 
     private PlayerItems items;
     private SnowBlockBuilder blockBuilder;
@@ -17,7 +18,7 @@ public class Weapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1) && gameManager.state == GameManager.GameState.Game)
         {
             if (items.pickedSnowAmount >= blockBuilder.snowballStartCost)
                 Shoot();

@@ -28,6 +28,7 @@ public class SnowBlockBuilder : MonoBehaviour
     [SerializeField] Vector3 snowballInitialScale = new Vector3(0.2f, 0.2f, 0.2f);
     [SerializeField] float snowballDeadlyVelocity = 0f;
     [SerializeField] public SnowBar snowBar;
+    [SerializeReference] public GameManager gameManager;
 
     bool hasBeenDestroyed = false;
     float totalSphereCost = 0f;
@@ -43,7 +44,7 @@ public class SnowBlockBuilder : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && gameManager.state == GameManager.GameState.Game)
         { 
             if (items.pickedSnowAmount >= snowballStartCost)
             {
