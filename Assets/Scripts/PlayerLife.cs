@@ -105,8 +105,7 @@ public class PlayerLife : MonoBehaviour
         }
         else if (collision.CompareTag("InstaDeath"))
         {
-            health = 0;
-            Hurt();
+            Death();
         }
     }
     private void OnCollisionStay2D(Collision2D collision)
@@ -130,8 +129,7 @@ public class PlayerLife : MonoBehaviour
         }
         else if (collision.collider.CompareTag("InstaDeath"))
         {
-            health = 0;
-            Hurt();
+            Death();
         }
     }
 

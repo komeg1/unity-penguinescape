@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float waterSpeedMultiplier;
     private float maxWaterMoveSpeed;
     [SerializeField] private float waterGravityScale;
+    private AudioSource audioSource;
+    [SerializeField] AudioClip movementsSound;
 
     private Rigidbody2D rigidBody;
     private SpriteRenderer spriteRenderer;
@@ -35,7 +37,6 @@ public class PlayerMovement : MonoBehaviour
     public bool inWater = false;
 
     public bool canMove = true;
-    AudioSource audioSrc;
 
    
 
@@ -49,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         gravityScale = rigidBody.gravityScale;
         maxWaterMoveSpeed = moveSpeed * waterSpeedMultiplier;
-       audioSrc = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -85,16 +86,13 @@ public class PlayerMovement : MonoBehaviour
         }
         if (inWater)
         {
-            audioSrc.Stop();
             rigidBody.velocity = new Vector2(horizontal * maxWaterMoveSpeed, rigidBody.velocity.y);
            
         }
         else
         {
-            if(audioSrc.isPlaying == false && horizontal!=0 && rigidBody.velocity.y ==0)
-                 audioSrc.Play();
-            if (horizontal == 0 || rigidBody.velocity.y !=0)
-                audioSrc.Stop();
+            if(audioSource.isPlaying == false && horizontal!=0 && rigidBody.velocity.y ==0)
+                 audioSource.PlayOneShot(movementsSound, AudioListener.volume);
               
             rigidBody.velocity = new Vector2(horizontal * moveSpeed, rigidBody.velocity.y);
             if (isClimbing)
