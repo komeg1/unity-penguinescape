@@ -15,6 +15,11 @@ public class PlayerLife : MonoBehaviour
     [SerializeField] AudioClip deathSound;
     [SerializeField] AudioClip damageSound;
 
+
+    [SerializeField] float immunityTime = 1f;
+    [SerializeField] int immunityEffectFlashes = 4;
+    float timeSinceLastHurt;
+
     private List<Image> healthIconList = new();
 
     private AudioSource audioSource;
@@ -24,6 +29,7 @@ public class PlayerLife : MonoBehaviour
 
     void Start()
     {
+        timeSinceLastHurt = immunityTime;
         animator = GetComponent<Animator>();
         movementScript = GetComponent<PlayerMovement>();
         renderer = GetComponent<SpriteRenderer>();
@@ -34,12 +40,28 @@ public class PlayerLife : MonoBehaviour
             healthIconList[i].enabled = true;
     }
 
+    private void Update()
+    {
+        timeSinceLastHurt += Time.deltaTime;
+        if (timeSinceLastHurt <= immunityTime)
+        {
+            float value = (Mathf.Cos((timeSinceLastHurt - immunityTime)/immunityTime * immunityEffectFlashes * 2 * Mathf.PI) + 1) / 2;
+            renderer.color = new Color(1f, value, value);
+        }
+
+    }
+
 
     public void Hurt()
     {
         Debug.Log("Hurt");
-        DecreaseHealth();
-        audioSource.PlayOneShot(damageSound, AudioListener.volume);
+        if(timeSinceLastHurt >= immunityTime)
+        {
+            timeSinceLastHurt = 0;
+            DecreaseHealth();
+            audioSource.PlayOneShot(damageSound, AudioListener.volume);
+        }
+
         if (health <= 0)
             Death();
     }
@@ -62,7 +84,7 @@ public class PlayerLife : MonoBehaviour
         renderer.forceRenderingOff = true;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.CompareTag("DamageSource"))
         {
@@ -87,7 +109,7 @@ public class PlayerLife : MonoBehaviour
             Hurt();
         }
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.collider.CompareTag("DamageSource"))
         {
