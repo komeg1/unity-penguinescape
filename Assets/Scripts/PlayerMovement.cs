@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
     private float horizontal;
     private float vertical;
 
-    private bool inWater = false;
+    public bool inWater = false;
 
     public bool canMove = true;
     AudioSource audioSrc;
