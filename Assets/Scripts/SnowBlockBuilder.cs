@@ -12,8 +12,6 @@ public class SnowBlockBuilder : MonoBehaviour
     private Collider2D sphereCollider;
     private PlayerItems items;
 
-    [SerializeField] private ParticleSystem destroyParticleSystem;
-
     private float shootForce = 20.0f;
 
     Vector3 mousePos;
@@ -98,7 +96,6 @@ public class SnowBlockBuilder : MonoBehaviour
             if (sphere != null)
             {
                 SnowballScript snowballScript = sphere.GetComponent<SnowballScript>();
-                snowballScript.snowBurst = destroyParticleSystem;
                 snowballScript.burstParticlesAmount = (int)(totalSphereCost / items.snowParticleValue);
 
                 sphere.layer = LayerMask.NameToLayer("Ground");

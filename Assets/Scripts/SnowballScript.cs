@@ -25,7 +25,7 @@ public class SnowballScript : MonoBehaviour
         if (bursted)
             return;
 
-        snowBurstInstance = Instantiate(snowBurst, transform.position, Quaternion.identity);
+        snowBurstInstance = Instantiate(snowBurst, transform);
         //ps.emission.SetBurst(0, new ParticleSystem.Burst(0, burstParticlesAmount, 0, 0));
         snowBurstInstance.Emit(burstParticlesAmount);
 
@@ -47,8 +47,16 @@ public class SnowballScript : MonoBehaviour
     }
     IEnumerator delayedDestroy()
     {
+        sphereRigidBody.freezeRotation = true;
+        sphereRigidBody.drag = 10f;
+        //sphereRigidBody.simulated = false;
+        GetComponent<Collider2D>().enabled = false;
+        GetComponent<SpriteRenderer>().enabled = false;
         yield return new WaitForSeconds(0.5f);
         //snowBurstInstance.transform.SetParent(null, true);
+        snowBurstInstance.transform.SetParent(null, true);
+        snowBurstInstance.transform.localScale = Vector3.one;
+
 
         Destroy(this.gameObject);
     }
