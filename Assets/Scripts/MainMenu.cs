@@ -10,7 +10,7 @@ public class MainMenu : MonoBehaviour
     public static int skinNumber = 0;
     [SerializeField] ChangeSkin exampleOverrider;
     [SerializeField] GameObject tutorialPanel;
-    public static int coinsAmount=900;
+    public static int coinsAmount=1000;
     
 
     void Start()

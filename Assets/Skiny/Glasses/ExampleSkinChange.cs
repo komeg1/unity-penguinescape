@@ -22,7 +22,6 @@ public class ExampleSkinChange : MonoBehaviour
     [SerializeField] private ChangeSkin overrider;
     private static SkinData[] skinsData;
     private static bool initDone = false;
-    private Image tickImage;
     [SerializeField] private GameObject lockedText;
     [SerializeField] private Button selectButton;
     [SerializeField] private Button buyButton;
@@ -45,8 +44,6 @@ public class ExampleSkinChange : MonoBehaviour
             initDone = true;
         }
         
-
-        tickImage = GameObject.Find("Tick").GetComponent<Image>() ;
         chosenSkin = MainMenu.skinNumber;
         SetExampleSkin();
     }
@@ -70,7 +67,6 @@ public class ExampleSkinChange : MonoBehaviour
     {
         MainMenu.skinNumber = chosenSkin;
         selectObject.SetActive(false);
-        updateTick();
     }
     public void OnMainMenuButtonClick()
     {
@@ -92,22 +88,16 @@ public class ExampleSkinChange : MonoBehaviour
         else
         {
             buyObject.gameObject.SetActive(false);
-            if(MainMenu.skinNumber != chosenSkin)
-            selectObject.gameObject.SetActive(true);
+            Debug.Log("Selected: " + MainMenu.skinNumber + " selected in shop: " + chosenSkin);
+            if (MainMenu.skinNumber != chosenSkin)
+                selectObject.gameObject.SetActive(true);
+            else
+                selectObject.gameObject.SetActive(false);
+
             lockedText.SetActive(false);
             
         }
-        updateTick();
         overrider.SetAnimations(chosenSkin);
-        
-
-
-
-    }
-
-    public void updateTick()
-    {
-        //
     }
 
     public void InitializeSkinsData()
