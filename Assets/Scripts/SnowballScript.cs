@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using static UnityEditor.Progress;
-using static UnityEngine.ParticleSystem;
+
 
 public class SnowballScript : MonoBehaviour
 {

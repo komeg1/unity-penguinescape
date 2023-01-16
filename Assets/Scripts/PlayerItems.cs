@@ -7,6 +7,7 @@ public class PlayerItems : MonoBehaviour
     [SerializeField] public float snowParticleValue = 0.01f;
     [SerializeField] private float startingSnow = 5f;
     [SerializeField] public SnowBar snowBar;
+    [SerializeField] public SnowBar airBar;
     [SerializeField] private SpriteRenderer drowningEffect;
 
     private PlayerMovement player;
@@ -16,7 +17,7 @@ public class PlayerItems : MonoBehaviour
     public float pickedSnowAmount = 0.0f;
 
     [SerializeField] public float maxSnowAmount = 10f;
-    [SerializeField] float maxAirAmount = 10f;
+    [SerializeField] float maxAirAmount = 7f;
     private float air;
 
     private void Start()
@@ -25,6 +26,8 @@ public class PlayerItems : MonoBehaviour
         pickedSnowAmount = startingSnow;
         snowBar.SetMaxSnow(maxSnowAmount);
         snowBar.SetSnow(startingSnow);
+        airBar.SetMaxSnow(maxAirAmount);
+        airBar.SetMaxSnow(air);
 
         player = GetComponent<PlayerMovement>();
         playerLife = GetComponent<PlayerLife>();
@@ -54,6 +57,7 @@ public class PlayerItems : MonoBehaviour
     }
     public async void UpdateAir()
     {
+        airBar.SetSnow(air);
         drowningEffect.color = new Color(1f, 1f, 1f,Sin0x(maxAirAmount-air, maxAirAmount, 1f));
         if (player.inWater)
         {

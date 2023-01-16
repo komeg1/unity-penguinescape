@@ -26,8 +26,11 @@ public class ExampleSkinChange : MonoBehaviour
     [SerializeField] private GameObject lockedText;
     [SerializeField] private Button selectButton;
     [SerializeField] private Button buyButton;
+    [SerializeField] private GameObject selectObject;
+    [SerializeField] private GameObject buyObject;
     [SerializeField] private TMP_Text coinsText;
     [SerializeField] private TMP_Text priceText;
+    [SerializeField] private GameObject cantBuyObject;
    
     void Start()
     {
@@ -66,7 +69,7 @@ public class ExampleSkinChange : MonoBehaviour
     public void OnSelectButtonClick()
     {
         MainMenu.skinNumber = chosenSkin;
-        selectButton.gameObject.SetActive(false);
+        selectObject.SetActive(false);
         updateTick();
     }
     public void OnMainMenuButtonClick()
@@ -79,8 +82,8 @@ public class ExampleSkinChange : MonoBehaviour
         priceText.text = "" + skinsData[chosenSkin].price + "$";
         if (skinsData[chosenSkin].isLocked == true)
         {
-            buyButton.gameObject.SetActive(true);
-            selectButton.gameObject.SetActive(false);
+            buyObject.gameObject.SetActive(true);
+            selectObject.gameObject.SetActive(false);
             lockedText.SetActive(true);
             
             
@@ -88,8 +91,9 @@ public class ExampleSkinChange : MonoBehaviour
         }
         else
         {
-            buyButton.gameObject.SetActive(false);
-            selectButton.gameObject.SetActive(true);
+            buyObject.gameObject.SetActive(false);
+            if(MainMenu.skinNumber != chosenSkin)
+            selectObject.gameObject.SetActive(true);
             lockedText.SetActive(false);
             
         }
@@ -103,13 +107,7 @@ public class ExampleSkinChange : MonoBehaviour
 
     public void updateTick()
     {
-        if (MainMenu.skinNumber == chosenSkin)
-        {
-            tickImage.enabled = true;
-            selectButton.gameObject.SetActive(false);
-        }
-        else
-            tickImage.enabled = false;
+        //
     }
 
     public void InitializeSkinsData()
@@ -128,7 +126,7 @@ public class ExampleSkinChange : MonoBehaviour
         skinsData[0].isLocked = false;
 
         //Glasses
-        skinsData[1].price = 500;
+        skinsData[1].price = 1000;
 
         
         //Pink
@@ -137,19 +135,33 @@ public class ExampleSkinChange : MonoBehaviour
         //Blue
         skinsData[3].price = 1500;
 
+        //Yellow
+        skinsData[4].price = 1500;
+
         //White
-        skinsData[4].price = 2500;
+        skinsData[5].price = 2500;
+
+        //Black
+        skinsData[6].price = 2500;
+
+        //Ninja
+        skinsData[7].price = 4000;
+
+        //Rainbow
+        skinsData[8].price = 9999;
+
     }
 
     public void SetUI()
     {
+        cantBuyObject.SetActive(false);
         lockedText = GameObject.Find("Locked");
         lockedText.SetActive(false);
 
         coinsText.text = ": " + MainMenu.coinsAmount;
 
-        selectButton.gameObject.SetActive(false);
-        buyButton.gameObject.SetActive(false);
+        selectObject.gameObject.SetActive(false);
+        buyObject.gameObject.SetActive(false);
     }
 
 
@@ -160,15 +172,23 @@ public class ExampleSkinChange : MonoBehaviour
         {
             skinsData[chosenSkin].isLocked = false;
             MainMenu.coinsAmount -= skinsData[chosenSkin].price;
-            buyButton.gameObject.SetActive(false);
-            selectButton.gameObject.SetActive(true);
+            buyObject.gameObject.SetActive(false);
+            selectObject.gameObject.SetActive(true);
             coinsText.text = ": " + MainMenu.coinsAmount;
             lockedText.SetActive(false);
         }
         else
         {
-            Debug.Log("nie mozna kupic");
+            cantBuyObject.SetActive(true);
+            StartCoroutine(Delay());
+            
         }
+    }
+
+    IEnumerator Delay()
+    {
+        yield return new WaitForSeconds(2f);
+        cantBuyObject.SetActive(false);
     }
 
    

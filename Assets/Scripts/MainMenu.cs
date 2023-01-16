@@ -9,12 +9,13 @@ public class MainMenu : MonoBehaviour
     // Start is called before the first frame update
     public static int skinNumber = 0;
     [SerializeField] ChangeSkin exampleOverrider;
-  
+    [SerializeField] GameObject tutorialPanel;
     public static int coinsAmount=900;
     
 
     void Start()
     {
+        tutorialPanel.SetActive(false);
         Time.timeScale = 1f;
         exampleOverrider.SetAnimations(skinNumber);
         Debug.Log("Coins: " + coinsAmount);
@@ -34,6 +35,17 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadSceneAsync("Customization");
     }
+
+    public void OnTutorialButtonPressed()
+    {
+        tutorialPanel.SetActive(true);
+    }
+
+    public void OnTutorialExitButton()
+    {
+        tutorialPanel.SetActive(false);
+    }
+
     public void OnExitToDesktopButtonPressed()
     {
 #if UNITY_EDITOR
