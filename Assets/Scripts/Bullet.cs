@@ -12,12 +12,16 @@ public class Bullet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+<<<<<<< HEAD
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10f));
         mousePos.z = transform.position.z;
         Vector3 rotation = (mousePos - transform.position).normalized;
         Debug.Log("Shoot at " + rotation);
         bullet.velocity = rotation * speed;
         transform.position += rotation;
+=======
+        bullet.velocity = transform.right * speed;
+>>>>>>> master
     }
 
     // Update is called once per frame
