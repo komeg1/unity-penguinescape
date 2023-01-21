@@ -1,20 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
     // Start is called before the first frame update
-   [SerializeField] private Transform hand;
+    [SerializeField] private Transform hand;
     [SerializeField] private GameObject bulletPrefab;
+    [SerializeReference] public GameManager gameManager;
 
-    private int ammoAmount = 10;
+    private PlayerItems items;
+    private SnowBlockBuilder blockBuilder;
+
+    private void Start()
+    {
+        items = GetComponent<PlayerItems>();
+        blockBuilder = GetComponent<SnowBlockBuilder>();
+    }
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.F))
+        if (Input.GetMouseButtonDown(1) && gameManager.state == GameManager.GameState.Game)
         {
-            if(ammoAmount> 0)
+            if (items.pickedSnowAmount >= blockBuilder.snowballStartCost)
                 Shoot();
 
         }
@@ -22,7 +28,7 @@ public class Weapon : MonoBehaviour
 
     void Shoot()
     {
-        Instantiate(bulletPrefab, hand.position, hand.rotation);
-        ammoAmount--;
+        Instantiate(bulletPrefab, hand.position, Quaternion.identity);
+        items.addSnow(-blockBuilder.snowballStartCost);
     }
 }

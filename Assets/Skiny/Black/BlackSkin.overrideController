@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: BlackSkin
+  m_Controller: {fileID: 9100000, guid: 3d3de785aa36da64c9df3ed4e882e79e, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 3440ac725b8a8994d86b598b28fa7870, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: ca5884566ed31094e91bc7ccc7e8a266, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: eb29e362308b153419a9273895e37053, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: a944eac37aac72c45bd2050d7ca20ff8, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 4cfd0043c1d1cad4f842c1afc1fb2541, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 14b5caa1bf7afea4d9c51231dc18655d, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 418922e51efcff8438c41621fa1db918, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: a5082df134578484ead18b92ce35e67c, type: 2}

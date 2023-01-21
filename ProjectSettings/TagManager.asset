@@ -5,6 +5,19 @@ TagManager:
   serializedVersion: 2
   tags:
   - Coin
+  - Water
+  - ClimbingWall
+  - Key
+  - Life
+  - MovingPlatform
+  - DamageSource
+  - KillableDamageSource
+  - Finish Line
+  - IceAxes
+  - InstaDeath
+  - Snowball
+  - Ground
+  - GameMusic
   layers:
   - Default
   - TransparentFX
@@ -13,7 +26,7 @@ TagManager:
   - Water
   - UI
   - Coin
-  - 
+  - SnowBall
   - 
   - 
   - 
@@ -39,18 +52,30 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Background
+  - name: Background2
     uniqueID: 2725782589
     locked: 0
-  - name: Ground
-    uniqueID: 710931969
+  - name: Background1
+    uniqueID: 1420589743
     locked: 0
-  - name: GroundDecorations
-    uniqueID: 3180436885
+  - name: TerrainBackground
+    uniqueID: 3233819813
     locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: UnderWaterTerrain
+    uniqueID: 2204781419
+    locked: 0
+  - name: Terrain
+    uniqueID: 710931969
+    locked: 0
+  - name: TerrainDecorations
+    uniqueID: 3180436885
+    locked: 0
   - name: Water
     uniqueID: 442557789
+    locked: 0
+  - name: Effects
+    uniqueID: 2393381399
     locked: 0
