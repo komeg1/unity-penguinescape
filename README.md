@@ -2,7 +2,7 @@
 
 The 2D platform game has been made for a college course.
 
-Penguin Escape is a game about a mama penguin living during the peak of global worming.
+Penguin Escape is a game about a mama penguin living during the peak of global warming.
 Unfortunately, her home started to melt down and she needs to run away from rising water level with her unborn 
 children as soon as possible! Collect at least 3 out of 4 eggs scattered around the map. 
 
